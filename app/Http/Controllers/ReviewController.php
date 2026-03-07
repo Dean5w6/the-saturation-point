@@ -11,14 +11,29 @@ use Yajra\DataTables\Facades\DataTables;
 class ReviewController extends Controller
 {
     private function maskProfanity($text)
-    {
-        if (!$text) return null;
-        
-        $badWords = ['scam', 'fake', 'bad', 'horrible', 'shit']; 
+{
+    if (!$text) return null;
+        $badWords = [ 
+            'fuck', 'shit', 'bitch', 'asshole', 'crap', 'bastard', 'cunt', 'dick', 'pussy', 'slut', 'whore', 
+            'motherfucker', 'cock', 'twat', 'wanker', 'prick', 'bullshit', 'dickhead', 'dumbass', 'douchebag',
+             
+            'nigger', 'nigga', 'faggot', 'fag', 'retard', 'dyke', 'tranny', 'chink', 'spic',
+             
+            'putangina', 'puta', 'gago', 'gaga', 'tarantado', 'tanga', 'bobo', 'bwisit', 'pucha', 'punyeta', 
+            'hayop', 'inamo', 'ulol', 'kupal', 'pakyu', 'pokpok', 'malandi', 'hinayupak', 'lintik', 'hudas',
+             
+            'kantot', 'jakol', 'tite', 'pekpek', 'puke', 'bayag', 'hindot', 'supot', 'iyot'
+        ]; 
+         
+        usort($badWords, function($a, $b) {
+            return strlen($b) - strlen($a);
+        });
+
         foreach ($badWords as $word) {
-            $replacement = str_repeat('*', strlen($word));
-            $text = preg_replace("/\b$word\b/i", $replacement, $text);
+            $replacement = str_repeat('*', strlen($word)); 
+            $text = preg_replace("/\b" . preg_quote($word, '/') . "\b/i", $replacement, $text);
         }
+        
         return $text;
     }
 
