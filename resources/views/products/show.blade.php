@@ -11,63 +11,73 @@
 </nav>
 
 <div class="card shadow-sm border-0 mb-5">
-    <div class="row g-0">
-        <div class="col-md-6 border-end">
-            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="{{ Storage::url($product->img_path) }}" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="{{ $product->name }}">
-                    </div>
-                    @foreach($product->images as $image)
-                        <div class="carousel-item">
-                            <img src="{{ Storage::url($image->img_path) }}" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Gallery">
+    <div class="row g-0"> 
+        <div class="col-md-5 border-end bg-white">
+            <div class="ratio ratio-1x1">
+                <div id="productCarousel" class="carousel slide h-100 w-100" data-bs-ride="carousel">
+                    <div class="carousel-inner h-100 w-100">
+                        <div class="carousel-item active h-100 w-100">
+                            <img src="{{ Storage::url($product->img_path) }}" 
+                                 class="d-block w-100 h-100" 
+                                 style="object-fit: contain; padding: 1rem;" 
+                                 alt="{{ $product->name }}">
                         </div>
-                    @endforeach
+                        @foreach($product->images as $image)
+                            <div class="carousel-item h-100 w-100">
+                                <img src="{{ Storage::url($image->img_path) }}" 
+                                     class="d-block w-100 h-100" 
+                                     style="object-fit: contain; padding: 1rem;" 
+                                     alt="Gallery">
+                            </div>
+                        @endforeach
+                    </div>
+                    
+                    @if($product->images->count() > 0)
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev" style="width: 15%;">
+                            <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next" style="width: 15%;">
+                            <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>
+                        </button>
+                    @endif
                 </div>
-                @if($product->images->count() > 0)
-                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
-                    </button>
-                @endif
             </div>
         </div>
-        
-        <div class="col-md-6">
-            <div class="card-body p-5 h-100 d-flex flex-column">
+         
+        <div class="col-md-7 bg-white">
+            <div class="card-body p-5 h-100 d-flex flex-column justify-content-center">
                 <p class="text-muted text-uppercase ls-1 mb-1">{{ $product->brand }}</p>
-                <h2 class="font-playfair mb-3" style="color: var(--ink-blue);">{{ $product->name }}</h2>
+                <h2 class="font-playfair mb-3 display-6" style="color: var(--ink-blue);">{{ $product->name }}</h2>
                 <h3 class="fw-bold mb-4" style="color: var(--gold-accent);">₱{{ number_format($product->price, 2) }}</h3>
                 
-                <p class="lead" style="font-size: 1rem;">{{ $product->description }}</p>
-                <hr class="my-4">
+                <p class="lead text-dark mb-4" style="font-size: 1rem; line-height: 1.8;">{{ $product->description }}</p>
+                
+                <hr class="my-4 text-muted opacity-25">
 
-                <div class="mt-auto">
-                    <p class="mb-3">
-                        <span class="badge bg-{{ $product->stock > 0 ? 'success' : 'danger' }}">
-                            {{ $product->stock > 0 ? 'In Stock (' . $product->stock . ' available)' : 'Out of Stock' }}
+                <div class="mt-2">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <span class="badge bg-{{ $product->stock > 0 ? 'success' : 'danger' }} px-3 py-2" style="font-weight: 500; letter-spacing: 0.5px;">
+                            {{ $product->stock > 0 ? 'IN STOCK (' . $product->stock . ')' : 'OUT OF STOCK' }}
                         </span>
-                    </p>
+                    </div>
 
                     @guest
-                        <div class="alert alert-secondary border-0 text-center">
-                            <i class="fas fa-lock mb-2 fa-2x" style="color: var(--gold-accent);"></i>
-                            <h6>Sign in to purchase</h6>
-                            <div class="mt-3 d-flex justify-content-center gap-2">
+                        <div class="p-4 bg-light rounded text-center border border-light">
+                            <i class="fas fa-lock mb-2 fa-lg text-muted"></i>
+                            <h6 class="mb-3 text-muted">Sign in to purchase</h6>
+                            <div class="d-flex justify-content-center gap-2">
                                 <a href="{{ route('login') }}" class="btn btn-primary px-4">LOGIN</a>
                                 <a href="{{ route('register') }}" class="btn btn-outline-dark px-4" style="border-radius: 2px;">REGISTER</a>
                             </div>
                         </div>
                     @else
-                        <form action="{{ route('cart.add', $product->id) }}" method="POST" class="d-flex align-items-center" novalidate>
+                        <form action="{{ route('cart.add', $product->id) }}" method="POST" class="d-flex align-items-stretch" novalidate>
                             @csrf
-                            <div class="me-3">
-                                <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="{{ $product->stock }}" style="width: 80px;">
+                            <div class="me-2">
+                                <input type="number" name="quantity" class="form-control text-center h-100 fs-5" value="1" min="1" max="{{ $product->stock }}" style="width: 80px;" {{ $product->stock == 0 ? 'disabled' : '' }}>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg flex-grow-1" {{ $product->stock == 0 ? 'disabled' : '' }}>
-                                <i class="fas fa-cart-plus me-2"></i> ADD TO CART
+                            <button type="submit" class="btn btn-primary flex-grow-1" style="height: 50px; font-size: 1.1rem;" {{ $product->stock == 0 ? 'disabled' : '' }}>
+                                <i class="fas fa-shopping-bag me-2"></i> ADD TO CART
                             </button>
                         </form>
                     @endguest
@@ -81,14 +91,13 @@
     <div class="col-12">
         <div class="card shadow-sm border-0 mb-5">
             <div class="card-body p-4">
-                
                 @php
                     $myReview = $product->reviews->where('user_id', Auth::id())->first();
                     $otherReviews = $product->reviews->where('user_id', '!=', Auth::id());
                 @endphp
 
                 @auth
-                    @if(!$myReview)
+                    @if($canReview && !$myReview)
                         <h4 class="font-playfair mb-4" style="color: var(--ink-blue);">Write a Review</h4>
                         <form action="{{ route('reviews.store') }}" method="POST" class="mb-5 p-4 bg-light rounded shadow-sm border" novalidate>
                             @csrf
@@ -109,6 +118,11 @@
                             </div>
                             <button type="submit" class="btn btn-primary">SUBMIT REVIEW</button>
                         </form>
+                        <hr class="my-5">
+                    @elseif(!$canReview && !$myReview)
+                        <div class="text-center p-4 bg-light rounded mb-5">
+                            <p class="mb-0 text-muted italic">Purchase this item to leave a review.</p>
+                        </div>
                         <hr class="my-5">
                     @endif
                 @else

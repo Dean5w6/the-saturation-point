@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Order;  
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;  
 
 class ShopController extends Controller
 {
-    
     public function index(Request $request)
     {
         $categories = Category::all();
@@ -17,17 +18,13 @@ class ShopController extends Controller
         $query = Product::query();
 
         if ($request->filled('search')) {
-            
             $scout = Product::search($request->search);
-            
             $scout->query(function ($builder) use ($request) {
                 $builder->with('category'); 
                 $this->applyFilters($builder, $request);
             });
             $products = $scout->paginate(9)->withQueryString();
-        } 
-        
-        else {
+        } else {
             $query->with('category');
             $this->applyFilters($query, $request);
             $products = $query->latest()->paginate(9)->withQueryString();
@@ -57,7 +54,17 @@ class ShopController extends Controller
         $product = Product::with(['category', 'images', 'reviews' => function($query) {
             $query->orderByRaw("user_id = ? DESC", [auth()->id()])->orderBy('created_at', 'desc');
         }, 'reviews.user'])->findOrFail($id);
+ 
+        $canReview = false;
+        if (Auth::check()) {
+            $canReview = Order::where('user_id', Auth::id())
+                ->where('status', 'completed')
+                ->whereHas('items', function($q) use ($id) {
+                    $q->where('product_id', $id);
+                })
+                ->exists();
+        }
         
-        return view('products.show', compact('product'));
+        return view('products.show', compact('product', 'canReview'));
     }
 }

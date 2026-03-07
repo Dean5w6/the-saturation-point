@@ -13,7 +13,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="ps-4" style="width: 50px;">
-                                    <input type="checkbox" id="selectAll" class="form-check-input">
+                                    <input type="checkbox" id="selectAll" class="form-check-input" style="cursor: pointer;">
                                 </th>
                                 <th>Product</th>
                                 <th class="text-end">Price</th>
@@ -24,13 +24,17 @@
                         </thead>
                         <tbody>
                             @foreach($cart as $id => $details)
-                                @php $subtotal = $details['price'] * $details['quantity']; @endphp
+                                @php 
+                                    $subtotal = $details['price'] * $details['quantity']; 
+                                @endphp
                                 <tr>
                                     <td class="ps-4">
+                                        {{-- Added data-subtotal for JS calculation --}}
                                         <input type="checkbox" name="selected_items[]" value="{{ $id }}" 
-                                               form="checkout-form" class="form-check-input item-checkbox"
-                                               data-name="{{ $details['name'] }}"
-                                               data-subtotal="{{ $subtotal }}">
+                                               form="checkout-form" 
+                                               class="form-check-input item-checkbox" 
+                                               data-subtotal="{{ $subtotal }}"
+                                               style="cursor: pointer;">
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -39,7 +43,7 @@
                                             @endif
                                             <div>
                                                 <span class="fw-bold d-block">{{ $details['name'] }}</span>
-                                                <small class="text-muted small">Stock: {{ $details['stock'] }}</small>
+                                                <small class="text-muted">In Stock: {{ $details['stock'] }}</small>
                                             </div>
                                         </div>
                                     </td>
@@ -72,25 +76,27 @@
         <div class="col-md-3">
             <div class="card border-0 shadow-sm sticky-top" style="top: 100px; background-color: var(--ink-blue); color: white;">
                 <div class="card-body p-4">
-                    <h5 class="border-bottom border-secondary pb-3 mb-3 text-uppercase small ls-1">Summary</h5>
+                    <h5 class="border-bottom border-secondary pb-3 mb-4 text-uppercase small ls-1">Summary</h5>
                     
-                    <div id="selected-items-list" class="mb-3"> 
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-white-50 small">Items Selected:</span>
+                        <span id="selected-count" class="small fw-bold">0</span>
                     </div>
 
-                    <div class="border-top border-secondary pt-3 mt-3">
-                        <div class="d-flex justify-content-between mb-4">
-                            <span class="fs-5">Total</span>
-                            <span id="checkout-total" class="fs-5 fw-bold" style="color: var(--gold-accent);">₱0.00</span>
-                        </div>
-                        
-                        <form id="checkout-form" action="{{ route('checkout') }}" method="POST">
-                            @csrf
-                            <button type="submit" id="checkout-btn" class="btn w-100 py-3 fw-bold" 
-                                    style="background-color: var(--gold-accent); color: var(--ink-blue); border-radius: 2px;" disabled>
-                                CHECKOUT SELECTED
-                            </button>
-                        </form>
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="fs-5">Total</span>
+                        {{-- The ID checkout-total allows JS to update this text --}}
+                        <span id="checkout-total" class="fs-5 fw-bold" style="color: var(--gold-accent);">₱0.00</span>
                     </div>
+                    
+                    <form id="checkout-form" action="{{ route('checkout') }}" method="POST">
+                        @csrf
+                        <button type="submit" id="checkout-btn" class="btn w-100 py-3 fw-bold" 
+                                style="background-color: var(--gold-accent); color: var(--ink-blue); border-radius: 2px;" disabled>
+                            CHECKOUT SELECTED
+                        </button>
+                    </form>
+                    <p class="text-white-50 small mt-3 text-center" id="checkout-hint">Please select items to proceed.</p>
                 </div>
             </div>
         </div>
@@ -99,7 +105,7 @@
     <div class="text-center py-5">
         <i class="fas fa-shopping-basket fa-4x mb-3 text-muted"></i>
         <h4>Your cart is empty</h4>
-        <p class="text-muted">No items in your collection yet.</p>
+        <p class="text-muted">Looks like you haven't added anything to your collection yet.</p>
         <a href="{{ route('home') }}" class="btn btn-primary mt-3 px-5" style="border-radius: 2px;">START SHOPPING</a>
     </div>
 @endif
@@ -107,38 +113,52 @@
 
 @section('scripts')
 <script>
-    const selectAll = document.getElementById('selectAll');
-    const itemCheckboxes = document.querySelectorAll('.item-checkbox');
-    const totalDisplay = document.getElementById('checkout-total');
-    const itemsList = document.getElementById('selected-items-list');
-    const checkoutBtn = document.getElementById('checkout-btn');
+    document.addEventListener("DOMContentLoaded", function() {
+        const selectAll = document.getElementById('selectAll');
+        const itemCheckboxes = document.querySelectorAll('.item-checkbox');
+        const totalDisplay = document.getElementById('checkout-total');
+        const countDisplay = document.getElementById('selected-count');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const checkoutHint = document.getElementById('checkout-hint');
 
-    function calculateTotal() {
-        let total = 0;
-        let html = '';
+        function calculateTotal() {
+            let total = 0;
+            let count = 0;
 
-        itemCheckboxes.forEach(cb => {
-            if (cb.checked) {
-                total += parseFloat(cb.getAttribute('data-subtotal'));
-                html += `<div class="d-flex justify-content-between small mb-1">
-                            <span class="text-white-50">${cb.getAttribute('data-name')}</span>
-                            <span>₱${parseFloat(cb.getAttribute('data-subtotal')).toLocaleString()}</span>
-                         </div>`;
+            itemCheckboxes.forEach(cb => {
+                if (cb.checked) { 
+                    total += parseFloat(cb.getAttribute('data-subtotal'));
+                    count++;
+                }
+            });
+ 
+            totalDisplay.innerText = '₱' + total.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            countDisplay.innerText = count;
+ 
+            if (count > 0) {
+                checkoutBtn.disabled = false;
+                checkoutBtn.style.opacity = "1";
+                checkoutHint.classList.add('d-none');
+            } else {
+                checkoutBtn.disabled = true;
+                checkoutBtn.style.opacity = "0.5";
+                checkoutHint.classList.remove('d-none');
             }
-        });
+        }
+ 
+        itemCheckboxes.forEach(cb => cb.addEventListener('change', calculateTotal));
 
-        itemsList.innerHTML = html || '<p class="text-white-50 small text-center italic">No items selected</p>';
-        totalDisplay.innerText = '₱' + total.toLocaleString('en-US', { minimumFractionDigits: 2 });
-        checkoutBtn.disabled = total === 0;
-        checkoutBtn.style.opacity = total === 0 ? "0.5" : "1";
-    }
-
-    itemCheckboxes.forEach(cb => cb.addEventListener('change', calculateTotal));
-    selectAll.addEventListener('change', function() {
-        itemCheckboxes.forEach(cb => cb.checked = this.checked);
+        if(selectAll) {
+            selectAll.addEventListener('change', function() {
+                itemCheckboxes.forEach(cb => cb.checked = this.checked);
+                calculateTotal();
+            });
+        }
+ 
         calculateTotal();
     });
-
-    calculateTotal();
 </script>
 @endsection
