@@ -29,7 +29,7 @@
                 <a href="{{ route('orders.history') }}" class="btn">Track My Order</a>
             </div>
             <div class="footer">
-                Questions? Contact our support at dean@thesaturationpoint.tech<br>
+                Questions? Contact our support at contact@thesaturationpoint.tech<br>
                 &copy; {{ date('Y') }} The Saturation Point.
             </div>
         </div>

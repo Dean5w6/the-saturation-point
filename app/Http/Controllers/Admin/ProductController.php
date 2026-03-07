@@ -137,8 +137,10 @@ class ProductController extends Controller
             'brand' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
+            'img_path' => 'nullable|image|max:2048',
+            'images.*' => 'image|max:2048'
         ]);
- 
+
         if ($request->filled('new_category')) {
             $category = Category::firstOrCreate(['name' => $request->new_category]);
             $product->category_id = $category->id;
@@ -152,20 +154,37 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->stock = $request->stock;
         
+        $newMainImage = null;
         if ($request->hasFile('img_path')) {
-            if ($product->img_path) { Storage::disk('public')->delete($product->img_path); }
+            if ($product->img_path) { \Illuminate\Support\Facades\Storage::disk('public')->delete($product->img_path); }
             $product->img_path = $request->file('img_path')->store('products', 'public');
+            $newMainImage = \Illuminate\Support\Facades\Storage::url($product->img_path);
         }
 
         $product->save();
 
+        $newGalleryImages = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                ProductImage::create([
+                $path = $image->store('products/gallery', 'public');
+                $newImg = ProductImage::create([
                     'product_id' => $product->id,
-                    'img_path' => $image->store('products/gallery', 'public')
+                    'img_path' => $path
                 ]);
+                $newGalleryImages[] = [
+                    'id' => $newImg->id,
+                    'url' => \Illuminate\Support\Facades\Storage::url($path)
+                ];
             }
+        }
+ 
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Product updated successfully!',
+                'main_image' => $newMainImage,
+                'new_gallery' => $newGalleryImages
+            ]);
         }
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated.');
@@ -226,5 +245,19 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Import Failed: ' . $e->getMessage());
         }
+    }
+
+    public function deleteImage($id)
+    {
+        $image = ProductImage::findOrFail($id);
+         
+        Storage::disk('public')->delete($image->img_path);
+         
+        $image->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Image deleted successfully.'
+        ]);
     }
 }

@@ -39,25 +39,28 @@
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow">
-                        @if(Auth::user()->role === 'admin')
-                            <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="{{ route('admin.products.index') }}">Manage Products</a></li>
-                            <li><a class="dropdown-item" href="{{ route('admin.orders.index') }}">Manage Orders</a></li>
-                            <li><a class="dropdown-item" href="{{ route('admin.users.index') }}">Manage Users</a></li>
+                            <li><a class="dropdown-item fw-bold" style="color: var(--ink-blue);" href="{{ route('profile.edit') }}">My Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
-                        @else 
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a></li>
-                            <li><a class="dropdown-item" href="{{ route('orders.history') }}">My Orders</a></li>
+                            
+                            @if(Auth::user()->role === 'admin')
+                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.products.index') }}">Manage Products</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.orders.index') }}">Manage Orders</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.users.index') }}">Manage Users</a></li>
+                            @else
+                                <li><a class="dropdown-item" href="{{ route('orders.history') }}">My Orders</a></li>
+                            @endif
+                            
                             <li><hr class="dropdown-divider"></li>
-                        @endif
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="dropdown-item text-danger">Logout</button>
-                            </form>
+                            
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger fw-bold">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
                         </li>
-                    </ul>
-                    </li>
                 @endguest
             </ul>
         </div>

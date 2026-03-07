@@ -13,27 +13,27 @@
   
 <div class="row g-4 mb-5">
     <div class="col-md-3">
-        <div class="card bg-white text-center p-4 h-100 shadow-sm border-0">
-            <h1 class="display-4 fw-bold font-playfair" style="color: var(--ink-blue);">₱{{ number_format($totalSales, 2) }}</h1>
-            <p class="text-muted text-uppercase small ls-1 mb-0">Total Sales</p>
+        <div class="card bg-white text-center p-4 h-100 shadow-sm border-0 d-flex justify-content-center">
+            <h1 class="display-6 fw-bold font-playfair text-nowrap" style="color: var(--ink-blue);">₱{{ number_format($totalSales, 2) }}</h1>
+            <p class="text-muted text-uppercase small ls-1 mb-0 mt-2">Total Sales</p>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card bg-white text-center p-4 h-100 shadow-sm border-0">
-            <h1 class="display-4 fw-bold font-playfair" style="color: var(--ink-blue);">{{ $newOrders }}</h1>
-            <p class="text-muted text-uppercase small ls-1 mb-0">New Orders</p>
+        <div class="card bg-white text-center p-4 h-100 shadow-sm border-0 d-flex justify-content-center">
+            <h1 class="display-6 fw-bold font-playfair" style="color: var(--ink-blue);">{{ $newOrders }}</h1>
+            <p class="text-muted text-uppercase small ls-1 mb-0 mt-2">New Orders</p>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card bg-white text-center p-4 h-100 shadow-sm border-0">
-            <h1 class="display-4 fw-bold font-playfair" style="color: var(--ink-blue);">{{ $totalProducts }}</h1>
-            <p class="text-muted text-uppercase small ls-1 mb-0">Products</p>
+        <div class="card bg-white text-center p-4 h-100 shadow-sm border-0 d-flex justify-content-center">
+            <h1 class="display-6 fw-bold font-playfair" style="color: var(--ink-blue);">{{ $totalProducts }}</h1>
+            <p class="text-muted text-uppercase small ls-1 mb-0 mt-2">Products</p>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card bg-white text-center p-4 h-100 shadow-sm border-0">
-            <h1 class="display-4 fw-bold font-playfair" style="color: var(--ink-blue);">{{ $totalCustomers }}</h1>
-            <p class="text-muted text-uppercase small ls-1 mb-0">Customers</p>
+        <div class="card bg-white text-center p-4 h-100 shadow-sm border-0 d-flex justify-content-center">
+            <h1 class="display-6 fw-bold font-playfair" style="color: var(--ink-blue);">{{ $totalCustomers }}</h1>
+            <p class="text-muted text-uppercase small ls-1 mb-0 mt-2">Customers</p>
         </div>
     </div>
 </div>

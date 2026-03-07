@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2026 at 06:24 AM
+-- Generation Time: Mar 07, 2026 at 04:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -66,8 +66,7 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
 (1, 'Fountain Pens', 'Luxury writing instruments.', '2026-02-23 04:40:58', '2026-02-23 04:40:58'),
 (2, 'Inks', 'Bottled fountain pen inks.', '2026-02-23 04:40:58', '2026-02-23 04:40:58'),
-(3, 'Paper', 'Fountain pen friendly notebooks.', '2026-02-23 04:40:58', '2026-02-23 04:40:58'),
-(7, 'Test', NULL, '2026-02-27 01:43:58', '2026-02-27 01:43:58');
+(3, 'Paper', 'Fountain pen friendly notebooks.', '2026-02-23 04:40:58', '2026-02-23 04:40:58');
 
 -- --------------------------------------------------------
 
@@ -159,6 +158,14 @@ CREATE TABLE `orders` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `status`, `total_price`, `transaction_date`, `created_at`, `updated_at`) VALUES
+(1, 2, 'completed', 1200.00, '2026-03-07 14:21:20', '2026-03-07 06:21:20', '2026-03-07 06:22:01'),
+(2, 2, 'completed', 16500.00, '2026-03-07 14:28:54', '2026-03-07 06:28:54', '2026-03-07 06:29:48');
+
 -- --------------------------------------------------------
 
 --
@@ -174,6 +181,14 @@ CREATE TABLE `order_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 29, 1, 1200.00, '2026-03-07 06:21:20', '2026-03-07 06:21:20'),
+(2, 2, 23, 1, 16500.00, '2026-03-07 06:28:54', '2026-03-07 06:28:54');
 
 -- --------------------------------------------------------
 
@@ -212,8 +227,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `brand`, `description`, `price`, `stock`, `img_path`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Irish Green', 'Montblanc', 'A vibrant, elegant green ink that brings the lush landscapes of Ireland to your pages. Known for its exceptional flow, crisp lines, and striking shading capabilities, this premium ink behaves flawlessly in both vintage and modern fountain pens. It comes housed in Montblanc\'\'s iconic, heavy glass \"shoe\" bottle, featuring a distinct front compartment for easy filling even when the ink level runs low.', 1850.00, 15, 'products/Fg14QRfpoHyBf0AOBSmqHOokGYV7DMpToiPIGMIP.png', NULL, '2026-02-23 04:52:30', '2026-03-06 20:56:17'),
-(2, 1, 'Homo Sapiens Bronze Age', 'Visconti', 'Crafted from the basaltic lava of Mount Etna in Italy, this remarkable writing instrument is virtually unbreakable, slightly hygroscopic (absorbs hand moisture), and velvety to the touch. It features solid bronze trims that develop a beautiful, unique patina over time. Equipped with Visconti\'\'s revolutionary 18k gold in-house nib and a high-capacity vacuum power filler system, this pen is a true masterpiece of Italian engineering.', 45500.00, 3, 'products/f1ZYylkHqcN8AVdCMDrre1xkUIeiGtdS6Cv5aVZx.png', NULL, '2026-02-23 18:25:54', '2026-03-06 20:56:32'),
+(1, 2, 'Irish Green', 'Montblanc', 'A vibrant, elegant green ink that brings the lush landscapes of Ireland to your pages. Known for its exceptional flow, crisp lines, and striking shading capabilities, this premium ink behaves flawlessly in both vintage and modern fountain pens. It comes housed in Montblanc\'\'s iconic, heavy glass \"shoe\" bottle, featuring a distinct front compartment for easy filling even when the ink level runs low.', 1850.00, 15, 'products/CuJO0dJAyUada4my2bvbXqnxIa4EZAWRBLQqRKi6.png', NULL, '2026-02-23 04:52:30', '2026-03-06 21:56:51'),
+(2, 1, 'Homo Sapiens Bronze Age', 'Visconti', 'Crafted from the basaltic lava of Mount Etna in Italy, this remarkable writing instrument is virtually unbreakable, slightly hygroscopic (absorbs hand moisture), and velvety to the touch. It features solid bronze trims that develop a beautiful, unique patina over time. Equipped with Visconti\'\'s revolutionary 18k gold in-house nib and a high-capacity vacuum power filler system, this pen is a true masterpiece of Italian engineering.', 45500.00, 3, 'products/thuzn9BiMkPCxixRjmXeWHRX2cjRnKWoP2mpnBCv.png', NULL, '2026-02-23 18:25:54', '2026-03-06 21:39:15'),
 (4, 1, 'Test Pen B', 'Pilot', 'N/A', 2000.00, 15, NULL, '2026-02-26 02:40:20', '2026-02-26 02:03:46', '2026-02-26 02:40:20'),
 (6, 1, 'Test Pen B', 'Pilot', 'N/A', 2000.00, 15, NULL, '2026-02-26 16:33:49', '2026-02-26 02:37:25', '2026-02-26 16:33:49'),
 (7, 2, 'Blue Ink', 'Diamine', 'Deep blue color.', 500.00, 50, NULL, '2026-02-26 16:33:53', '2026-02-26 02:37:25', '2026-02-26 16:33:53'),
@@ -229,23 +244,22 @@ INSERT INTO `products` (`id`, `category_id`, `name`, `brand`, `description`, `pr
 (20, 1, 'Test Pen B', 'Pilot', 'N/A', 2000.00, 15, NULL, '2026-02-26 16:35:32', '2026-02-26 16:35:05', '2026-02-26 16:35:32'),
 (21, 2, 'Blue Ink', 'Diamine', 'Deep blue color.', 500.00, 50, NULL, '2026-02-26 16:35:26', '2026-02-26 16:35:05', '2026-02-26 16:35:26'),
 (22, 3, 'Notebook X', 'Rhodia', 'High quality paper.', 350.00, 100, NULL, '2026-02-26 16:43:20', '2026-02-26 16:35:05', '2026-02-26 16:43:20'),
-(23, 1, 'Custom 823 Fountain Pen - Amber', 'Pilot', 'A demonstrator barrel featuring a high-capacity vacuum filling system and a smooth 14k gold nib. A true workhorse pen for serious writers.', 16500.00, 15, 'products/dOQOg9IWbhRWo4Yi2ljVEtSmsLvtf9Olu7ZByziC.png', NULL, '2026-02-27 00:52:49', '2026-03-02 16:34:18'),
-(24, 1, 'Lamy 2000 Fountain Pen - Black Makrolon', 'Lamy', 'A timeless Bauhaus design from 1966. Features a fiberglass and brushed stainless steel body, piston filling system, and a platinum-coated 14k gold nib.', 12500.00, 8, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(25, 1, 'Souverän M800 Fountain Pen - Green/Black', 'Pelikan', 'The classic German flagship pen. Features a brass-mechanism piston filler, a striped cellulose acetate barrel, and an incredibly smooth 18k bi-color gold nib.', 28000.00, 5, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(26, 1, 'Procyon Fountain Pen - Deep Sea', 'Platinum', 'An excellent everyday carry pen featuring Platinum\'s \"Slip and Seal\" mechanism that prevents ink from drying out for up to a year.', 3200.00, 25, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(27, 1, 'Eco Fountain Pen - Clear', 'TWSBI', 'An affordable, high-capacity piston filler demonstrator. Perfect for beginners and experts alike who want to see their ink slosh around inside the barrel.', 1800.00, 40, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(28, 1, '1911 Large Fountain Pen - Black/Gold', 'Sailor', 'A classic cigar-shaped pen known worldwide for having some of the most precise and feedback-rich 21k gold nibs ever manufactured.', 14500.00, 10, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(29, 2, 'Iroshizuku Kon-peki (Deep Blue)', 'Pilot', 'A vibrant, shading cerulean blue ink inspired by the color of a deep, clear summer sky. Exceptionally well-behaved and easy to clean.', 1200.00, 50, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(30, 2, 'Iroshizuku Yama-budo (Crimson Glory Vine)', 'Pilot', 'A rich, sophisticated magenta-purple ink that shades beautifully and occasionally sheens gold on high-quality paper.', 1200.00, 35, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(31, 2, 'Oxblood', 'Diamine', 'A deep, dark red ink that heavily resembles dried blood. One of the most popular and distinct shading inks in the fountain pen community.', 550.00, 60, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(32, 2, 'Aurora Borealis', 'Diamine', 'A stunning teal ink that exhibits massive amounts of red sheen when pooled on Tomoe River paper.', 550.00, 45, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(33, 2, 'Perle Noire (Black)', 'Aurora', 'Widely considered one of the deepest, darkest, and best-flowing black inks available on the market. Safe for vintage and modern pens.', 1100.00, 30, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(34, 2, 'Emerald of Chivor (1670 Anniversary)', 'J. Herbin', 'A legendary teal ink containing gold shimmer particles and massive red sheen. Shake well before filling your pen.', 1650.00, 12, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(35, 3, 'Tomoe River 52gsm Notebook - A5 Dot Grid', 'Hobonichi', 'The gold standard for fountain pen paper. Incredibly thin 52gsm paper that shows off maximum ink sheen and shading with absolutely zero bleed-through.', 1400.00, 20, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(36, 3, 'Rhodia Webnotebook - A5 Lined (Black)', 'Rhodia', 'Features 90gsm Clairefontaine ivory vellum paper. Incredibly smooth surface that prevents feathering. The perfect daily journal.', 1250.00, 30, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(37, 3, 'Mnemosyne Notebook - A5 Blank', 'Maruman', 'Premium Japanese paper designed specifically for smooth writing. Features micro-perforated pages and a durable plastic cover.', 950.00, 25, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(38, 3, 'Midori MD Notebook - A5 Grid', 'Midori', 'Minimalist design featuring cream-colored paper that provides excellent feedback for fountain pens without feathering.', 850.00, 40, NULL, NULL, '2026-02-27 00:52:49', '2026-02-27 00:52:49'),
-(39, 7, 'Test', 'Test', 'Test', 234.00, 234, 'products/RFYJZlTvyKuYOQmyXp3Sp9rTQzcAqCYgYwsTrDF3.gif', '2026-02-27 01:44:23', '2026-02-27 01:43:58', '2026-02-27 01:44:23');
+(23, 1, 'Custom 823 Fountain Pen - Amber', 'Pilot', 'A demonstrator barrel featuring a high-capacity vacuum filling system and a smooth 14k gold nib. A true workhorse pen for serious writers.', 16500.00, 13, 'products/dOQOg9IWbhRWo4Yi2ljVEtSmsLvtf9Olu7ZByziC.png', NULL, '2026-02-27 00:52:49', '2026-03-07 06:29:48'),
+(24, 1, 'Lamy 2000 Fountain Pen - Black Makrolon', 'Lamy', 'A timeless Bauhaus design from 1966. Features a fiberglass and brushed stainless steel body, piston filling system, and a platinum-coated 14k gold nib.', 12500.00, 8, 'products/diTJ6IEnX39E4nSUmQ1OTxDNRrFS2kgfBrkUgjvc.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:00:52'),
+(25, 1, 'Souverän M800 Fountain Pen - Green/Black', 'Pelikan', 'The classic German flagship pen. Features a brass-mechanism piston filler, a striped cellulose acetate barrel, and an incredibly smooth 18k bi-color gold nib.', 28000.00, 5, 'products/o87yJlGEq6YkIpW91bX1ZTWjkIbra1ueBxUoaQLP.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:03:47'),
+(26, 1, 'Procyon Fountain Pen - Deep Sea', 'Platinum', 'An excellent everyday carry pen featuring Platinum\'s \"Slip and Seal\" mechanism that prevents ink from drying out for up to a year.', 3200.00, 25, 'products/0oJ9VXdOFLlqMRAhYG3tWiqxeUaJ3FYYJgPuQ0If.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:07:07'),
+(27, 1, 'Eco Fountain Pen - Clear', 'TWSBI', 'An affordable, high-capacity piston filler demonstrator. Perfect for beginners and experts alike who want to see their ink slosh around inside the barrel.', 1800.00, 40, 'products/SX0gtYQwwWQqs12QIjNu1m0tagIc5iR0YwX1DiQ6.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:10:20'),
+(28, 1, '1911 Large Fountain Pen - Black/Gold', 'Sailor', 'A classic cigar-shaped pen known worldwide for having some of the most precise and feedback-rich 21k gold nibs ever manufactured.', 14500.00, 10, 'products/92eE2B2Z0SYPjx65XdMSW5OdXRmMwmNMCRYsVkYd.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:12:43'),
+(29, 2, 'Iroshizuku Kon-peki (Deep Blue)', 'Pilot', 'A vibrant, shading cerulean blue ink inspired by the color of a deep, clear summer sky. Exceptionally well-behaved and easy to clean.', 1200.00, 48, 'products/JmyDVBoo1z21tLNRGI0yGEvXuFw58dXPdaGXzvjH.png', NULL, '2026-02-27 00:52:49', '2026-03-07 06:22:01'),
+(30, 2, 'Iroshizuku Yama-budo (Crimson Glory Vine)', 'Pilot', 'A rich, sophisticated magenta-purple ink that shades beautifully and occasionally sheens gold on high-quality paper.', 1200.00, 35, 'products/Zjh4dt4Banhm3woooaL5q6GLSvEvDqBkx80aA5qu.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:19:14'),
+(31, 2, 'Oxblood', 'Diamine', 'A deep, dark red ink that heavily resembles dried blood. One of the most popular and distinct shading inks in the fountain pen community.', 550.00, 60, 'products/33Y9VoBBGgJ9uzsESKmAaI8cS0ekjy5FfgtyIaHT.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:23:08'),
+(32, 2, 'Aurora Borealis', 'Diamine', 'A stunning teal ink that exhibits massive amounts of red sheen when pooled on Tomoe River paper.', 550.00, 45, 'products/wZwxXsMWY9JCqAtSh0rP6M5ZMzq8be1DRQnE4PaA.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:26:34'),
+(33, 2, 'Perle Noire (Black)', 'Aurora', 'Widely considered one of the deepest, darkest, and best-flowing black inks available on the market. Safe for vintage and modern pens.', 1100.00, 30, 'products/Gl0edU9NTydKgzreR9xVzbRoIfh2u6KOfRQPhShv.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:30:53'),
+(34, 2, 'Emerald of Chivor (1670 Anniversary)', 'J. Herbin', 'A legendary teal ink containing gold shimmer particles and massive red sheen. Shake well before filling your pen.', 1650.00, 12, 'products/1OlO0s4SdeadQFl7lcBli3ihvgxJoEvlvYRYZwJ4.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:33:13'),
+(35, 3, 'Tomoe River 52gsm Notebook - A5 Dot Grid', 'Hobonichi', 'The gold standard for fountain pen paper. Incredibly thin 52gsm paper that shows off maximum ink sheen and shading with absolutely zero bleed-through.', 1400.00, 20, 'products/njHmuCYmWImnODheIc2yhO9qFwtPJ8OKC2Cjjb7U.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:35:22'),
+(36, 3, 'Rhodia Webnotebook - A5 Lined (Black)', 'Rhodia', 'Features 90gsm Clairefontaine ivory vellum paper. Incredibly smooth surface that prevents feathering. The perfect daily journal.', 1250.00, 30, 'products/0FT7iE9i0gFgvui6Pt4cOSaQFGmdfcOCC69vj9Va.png', NULL, '2026-02-27 00:52:49', '2026-03-07 01:39:15'),
+(37, 3, 'Mnemosyne Notebook - A5 Blank', 'Maruman', 'Premium Japanese paper designed specifically for smooth writing. Features micro-perforated pages and a durable plastic cover.', 950.00, 25, 'products/fprq10o3X9hQfbVtf0dHS2MPpMcz2rkKYNmjKvFQ.png', NULL, '2026-02-27 00:52:49', '2026-03-07 01:42:01'),
+(38, 3, 'Midori MD Notebook - A5 Grid', 'Midori', 'Minimalist design featuring cream-colored paper that provides excellent feedback for fountain pens without feathering.', 850.00, 40, 'products/tcwlRrASvjbvyTNnPIUTaNRNuRGWHprZQPGPRLRM.png', NULL, '2026-02-27 00:52:49', '2026-03-06 21:34:14');
 
 -- --------------------------------------------------------
 
@@ -266,17 +280,44 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `img_path`, `created_at`, `updated_at`) VALUES
-(1, 1, 'products/gallery/Rm3WOfsJUs0LBXwDFg5LCHspk5JMznBoxj0NaDXA.png', '2026-02-23 04:52:30', '2026-02-23 04:52:30'),
-(2, 1, 'products/gallery/U3juRSZidRd19BCZMaBIOggm8e5oSRKI4q8fJmGZ.png', '2026-02-23 04:52:30', '2026-02-23 04:52:30'),
-(3, 1, 'products/gallery/klmGRdXG26TFESMyawEQF9eQBbjo2iU7xwSYxYyz.png', '2026-02-23 04:52:30', '2026-02-23 04:52:30'),
-(4, 2, 'products/gallery/s4cB8XOaryioSU5GUdfB7Pah1XhEHx52C5J0rebO.png', '2026-02-23 18:25:54', '2026-02-23 18:25:54'),
-(5, 2, 'products/gallery/u5fzHx2imMQxpFmJPRISFDiL0P4rcfn10lFtBdgy.png', '2026-02-23 18:25:54', '2026-02-23 18:25:54'),
 (6, 9, 'products/gallery/0R4qmaTz0qMGTSv6U82qJUqwSSbBqnIk2j5Y6uwo.png', '2026-02-26 02:48:52', '2026-02-26 02:48:52'),
 (7, 10, 'products/gallery/vscADKZvCaQsU7dvFFd6oB12x5mb33Xeu5xh2QnI.png', '2026-02-26 02:49:56', '2026-02-26 02:49:56'),
-(8, 39, 'products/gallery/Wo2lMAqVjj0DGZu3hFaa9aY9DHogHGLTT3fxqk8h.png', '2026-02-27 01:43:58', '2026-02-27 01:43:58'),
-(9, 39, 'products/gallery/OfDpCTl53Q3IlzL9biD6JQZ4kV2lTmueRQtzDEG0.png', '2026-02-27 01:43:58', '2026-02-27 01:43:58'),
 (10, 23, 'products/gallery/bwfYX9z51gZ9l2Y28n00k1z4mT9nunrYdYNcgxug.png', '2026-03-02 16:34:18', '2026-03-02 16:34:18'),
-(11, 23, 'products/gallery/oG3SQthSuWScCE7xtnK2lVgzYzGYCeJbdJab6lKA.png', '2026-03-02 16:34:18', '2026-03-02 16:34:18');
+(11, 23, 'products/gallery/oG3SQthSuWScCE7xtnK2lVgzYzGYCeJbdJab6lKA.png', '2026-03-02 16:34:18', '2026-03-02 16:34:18'),
+(12, 38, 'products/gallery/RRqn4iblV0J0YCj7E9R2RQ0sqwtgwpjJEf76wJSo.png', '2026-03-06 21:34:14', '2026-03-06 21:34:14'),
+(13, 38, 'products/gallery/Ul1bUdlA1cZtyF8s2dCmCIOIf8JuJ6P7c2b5Ge83.png', '2026-03-06 21:34:14', '2026-03-06 21:34:14'),
+(14, 2, 'products/gallery/pIU7gKclaq1UxwTG3tFNVv5WJW03sOlP0oYtceG8.png', '2026-03-06 21:39:15', '2026-03-06 21:39:15'),
+(15, 2, 'products/gallery/tjfwd5ojyyP6J6OXX1IBb0ibEYQ0SK464898kRJS.png', '2026-03-06 21:39:15', '2026-03-06 21:39:15'),
+(17, 1, 'products/gallery/hFIOQOAPT1utnJe9GWq3wg3ekCQKa5VcYKjIHkDL.png', '2026-03-06 21:56:51', '2026-03-06 21:56:51'),
+(18, 1, 'products/gallery/ATdid0pcfPJ6yO2f6shOtW156xAg5gm1XIdokSLN.png', '2026-03-06 21:56:51', '2026-03-06 21:56:51'),
+(19, 24, 'products/gallery/sW7AxhEcfq6NQOLC92w5LcSJM9sYD0p3bkM3Ju3o.png', '2026-03-06 22:02:02', '2026-03-06 22:02:02'),
+(20, 24, 'products/gallery/OLv3Vw6O5Enjdyj8AApYEsijxSkgicHEElk4btG5.png', '2026-03-06 22:02:02', '2026-03-06 22:02:02'),
+(21, 25, 'products/gallery/iDqjnlppF6N85VCwjQTqHYQZKGGjVWlKvrYQJjDe.png', '2026-03-06 22:03:47', '2026-03-06 22:03:47'),
+(22, 25, 'products/gallery/bQRyY6JGuDjQ8mAgJ5pSR0KS5gO2Gu8bWVZL6us2.png', '2026-03-06 22:03:47', '2026-03-06 22:03:47'),
+(23, 26, 'products/gallery/iDTtcAxAsBDlof319MV0ulBPM8qGEGjwVyCMi2Dg.png', '2026-03-06 22:07:07', '2026-03-06 22:07:07'),
+(24, 26, 'products/gallery/dMQrTUqzhCCP96Goddj8ObRioDon67VL2E5h4eKN.png', '2026-03-06 22:07:07', '2026-03-06 22:07:07'),
+(25, 27, 'products/gallery/jBZDwxWWKmQSb2rRRGgcGSHB0IZwE3Jhoja0kqG8.png', '2026-03-06 22:10:20', '2026-03-06 22:10:20'),
+(26, 27, 'products/gallery/mWBb3chpE6ripx7ZtjOT5rRyKIpdVIjfBmir4MsA.png', '2026-03-06 22:10:20', '2026-03-06 22:10:20'),
+(27, 28, 'products/gallery/UPQkNwejUaFyDkoUrhEXPC2q9uGmqvNXoNwtZNGe.png', '2026-03-06 22:12:43', '2026-03-06 22:12:43'),
+(28, 28, 'products/gallery/poAR1aRaDcHOtraO8Z5Hr3fZWtWfWph1ya7eZ7qu.png', '2026-03-06 22:12:43', '2026-03-06 22:12:43'),
+(29, 29, 'products/gallery/NJXEpbKPNGQkLFOEq6Mq8I0ffQ63FxHYznBBYzRJ.png', '2026-03-06 22:16:06', '2026-03-06 22:16:06'),
+(30, 29, 'products/gallery/H4g4QFxv4pJiE3pEripNCP4XDIHJoHOU32Egor7P.png', '2026-03-06 22:16:06', '2026-03-06 22:16:06'),
+(31, 30, 'products/gallery/Ydzwg9MsrgJ4ijw6bs81wwh1Lp2G8qjj95ufocLo.png', '2026-03-06 22:19:14', '2026-03-06 22:19:14'),
+(32, 30, 'products/gallery/bm4y7xFcdZYtPj5I7dmPxcLHjrxrUZGcM5Wg2iln.png', '2026-03-06 22:19:14', '2026-03-06 22:19:14'),
+(33, 31, 'products/gallery/OHfMvgYeGJvflV9lwbnbSURul6LzjWd9GTZVTzH1.png', '2026-03-06 22:23:08', '2026-03-06 22:23:08'),
+(34, 31, 'products/gallery/yabPcIWnOzExOYjrs2EAlTYuCTl87nCVk6r5oRq3.png', '2026-03-06 22:23:08', '2026-03-06 22:23:08'),
+(35, 32, 'products/gallery/wc2nqMIXz6HuUwXbsVyNW8mhFeupLyQNMciU0MJq.png', '2026-03-06 22:26:34', '2026-03-06 22:26:34'),
+(36, 32, 'products/gallery/klYrWZ8cNZjConz3FxMEHoDPhSH9z6C0P9KiMq6H.png', '2026-03-06 22:26:34', '2026-03-06 22:26:34'),
+(37, 33, 'products/gallery/z0hggGK5d5cj1FF3ISd2eXVKIhjMnQmy2bJVYvjx.png', '2026-03-06 22:30:53', '2026-03-06 22:30:53'),
+(38, 33, 'products/gallery/I3LxebMhGsUoVs9UDZYMuNGFb2Ke8SGJpl4GeiFK.png', '2026-03-06 22:30:53', '2026-03-06 22:30:53'),
+(39, 34, 'products/gallery/FXWIOCzvKFPo2BqFnPuS26GraOo8Go3PhhQJ8kwH.png', '2026-03-06 22:33:13', '2026-03-06 22:33:13'),
+(40, 34, 'products/gallery/J3x0Xsf1J0zce3Igp7RAD6yFVancRMH2A601U7qu.png', '2026-03-06 22:33:13', '2026-03-06 22:33:13'),
+(41, 35, 'products/gallery/ikQovH6g8mXH82BXuaB5DcxyYEGW1QrcvAvKq2hC.png', '2026-03-06 22:35:22', '2026-03-06 22:35:22'),
+(42, 35, 'products/gallery/ZPJ3klqy4ULuwMGP10WwKcCF7ehIJk3nyAXaBedl.png', '2026-03-06 22:35:22', '2026-03-06 22:35:22'),
+(43, 36, 'products/gallery/0lyK7GKlxzCNkmgH0Kk73xibQBVSveQquIfWxpDG.png', '2026-03-07 01:39:15', '2026-03-07 01:39:15'),
+(44, 36, 'products/gallery/nskHWcqAHk1uULf0WcadHa2irBXBvCdeBuR6WlyZ.jpg', '2026-03-07 01:39:15', '2026-03-07 01:39:15'),
+(45, 37, 'products/gallery/quFFahRnLRyL6ChdmCExdenEeXe2pCfNhsawfBK4.png', '2026-03-07 01:42:01', '2026-03-07 01:42:01'),
+(46, 37, 'products/gallery/yuzIGShPHyCbtfgyYcuFjHLnbLPy5cnN1LXQiAgM.png', '2026-03-07 01:42:01', '2026-03-07 01:42:01');
 
 -- --------------------------------------------------------
 
@@ -492,13 +533,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -510,7 +551,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `reviews`

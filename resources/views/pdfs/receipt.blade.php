@@ -65,7 +65,7 @@
 
     <div class="footer">
         Thank you for shopping with The Saturation Point.<br>
-        For inquiries, contact us at dean@thesaturationpoint.tech
+        For inquiries, contact us at contact@thesaturationpoint.tech
     </div>
 </body>
 </html>
