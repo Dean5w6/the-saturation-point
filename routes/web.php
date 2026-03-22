@@ -74,4 +74,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     Route::delete('products/gallery/{id}', [ProductController::class, 'deleteImage'])->name('products.gallery.destroy');
+    Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
 });

@@ -7,17 +7,25 @@
     <p class="lead text-muted mt-3 mb-4 mx-auto" style="max-width: 600px;">Discover our curated collection of luxury fountain pens, premium bottled inks, and archival-quality paper for the discerning writer.</p>
     <a href="{{ route('home') }}" class="btn btn-primary btn-lg px-5">EXPLORE THE COLLECTION</a>
 </div>
- 
+  
 <div class="row text-center mb-5 pb-5 border-bottom">
     <div class="col-12">
         <h2 class="font-playfair mb-5">Browse Our Collection</h2>
     </div>
-    @foreach($categories as $category) 
-        <div class="col-md-4 mb-4"> 
-            <a href="{{ route('home', ['category' => $category->id]) }}" class="card text-decoration-none text-dark shadow-sm product-card h-100"> 
-                <div class="card-body p-5 d-flex flex-column justify-content-center align-items-center">
-                    <i class="fas fa-pen-fancy fa-3x mb-3" style="color: var(--gold-accent);"></i>
-                    <h4 class="font-playfair">{{ $category->name }}</h4>
+    @foreach($categories as $category)
+        <div class="col-md-4 mb-4">
+            <a href="{{ route('home', ['category' => $category->id]) }}" class="card text-decoration-none text-dark shadow-sm product-card h-100 border-0">
+                
+                @if($category->img_path) 
+                    <img src="{{ Storage::url($category->img_path) }}" class="card-img-top" alt="{{ $category->name }}" style="height: 200px; object-fit: cover;">
+                @else 
+                    <div style="height: 200px; background-color: var(--ink-blue); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-boxes fa-3x" style="color: var(--gold-accent);"></i>
+                    </div>
+                @endif
+                
+                <div class="card-body p-4 text-center">
+                    <h4 class="font-playfair mb-0" style="color: var(--ink-blue);">{{ $category->name }}</h4>
                 </div>
             </a>
         </div>

@@ -101,10 +101,10 @@
             scales: { y: { beginAtZero: true } }
         }
     });
- 
+  
     const topProductsCtx = document.getElementById('topProductsChart').getContext('2d');
     new Chart(topProductsCtx, {
-        type: 'doughnut', // Changed to doughnut for a more premium look
+        type: 'doughnut',
         data: {
             labels: {!! json_encode($topProducts->keys()) !!},
             datasets: [{
@@ -115,7 +115,28 @@
         },
         options: {
             responsive: true,
-            plugins: { title: { display: true, text: 'Top Products by Sales' } }
+            plugins: { 
+                title: { display: true, text: 'Top Products by Sales' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) { label += ': '; }
+                             
+                            let value = parseFloat(context.raw);
+                             
+                            let dataArr = context.chart.data.datasets[0].data;
+                            let sum = dataArr.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+                             
+                            let percentage = sum > 0 ? ((value * 100) / sum).toFixed(1) + '%' : '0%';
+                            
+                            let formattedValue = '₱' + value.toLocaleString('en-US', {minimumFractionDigits: 2});
+                             
+                            return label + formattedValue + ' (' + percentage + ')';
+                        }
+                    }
+                }
+            }
         }
     });
  

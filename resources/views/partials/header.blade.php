@@ -44,9 +44,11 @@
                             
                             @if(Auth::user()->role === 'admin')
                                 <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.categories.index') }}">Manage Categories</a></li> 
                                 <li><a class="dropdown-item" href="{{ route('admin.products.index') }}">Manage Products</a></li>
                                 <li><a class="dropdown-item" href="{{ route('admin.orders.index') }}">Manage Orders</a></li>
                                 <li><a class="dropdown-item" href="{{ route('admin.users.index') }}">Manage Users</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.reviews.index') }}">Manage Reviews</a></li>
                             @else
                                 <li><a class="dropdown-item" href="{{ route('orders.history') }}">My Orders</a></li>
                             @endif

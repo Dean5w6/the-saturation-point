@@ -136,13 +136,28 @@
                 @if($myReview)
                     <h4 class="font-playfair mb-4" style="color: var(--gold-accent);">My Review</h4>
                     <div class="d-flex mb-4 p-3 rounded" style="background-color: #fcfaf8; border: 1px solid #f0e6d6;">
-                        <div class="flex-shrink-0">
-                            <img src="{{ $myReview->user->img_path ? Storage::url($myReview->user->img_path) : 'https://via.placeholder.com/64' }}" class="rounded-circle border border-2" style="width: 64px; height: 64px; object-fit: cover; border-color: var(--gold-accent) !important;">
+                        <div class="flex-shrink-0"> 
+                            <img src="{{ $myReview->user->img_path ? Storage::url($myReview->user->img_path) : asset('storage/profile_photos/default_user.png') }}" class="rounded-circle border border-2" style="width: 64px; height: 64px; object-fit: cover; border-color: var(--gold-accent) !important;">
                         </div>
                         <div class="ms-3 flex-grow-1">
-                            <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mt-0 fw-bold mb-0">{{ $myReview->user->name }} <span class="badge bg-dark ms-2 small">YOU</span></h5>
-                                <small class="text-muted">{{ $myReview->created_at->format('M d, Y') }}</small>
+                                
+                                <div class="d-flex align-items-center gap-3">
+                                    <small class="text-muted">{{ $myReview->created_at->format('M d, Y') }}</small>
+                                     
+                                    @if(Auth::check() && Auth::user()->role === 'admin')
+                                        <form action="{{ route('admin.reviews.destroy', $myReview->id) }}" method="POST" class="m-0">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-link text-danger p-0 border-0" 
+                                                    onclick="return confirm('Delete this review permanently?')" 
+                                                    title="Delete as Admin">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
                             </div>
                             <div class="text-warning my-2">
                                 @for($i = 0; $i < $myReview->rating; $i++) <i class="fas fa-star"></i> @endfor
@@ -177,15 +192,28 @@
                 <h4 class="font-playfair mb-4" style="color: var(--ink-blue);">Customer Reviews</h4>
                 @forelse($otherReviews as $review)
                     <div class="d-flex mb-4">
-                        <div class="flex-shrink-0">
-                            <img src="{{ $review->user->img_path ? Storage::url($review->user->img_path) : 'https://via.placeholder.com/64' }}" class="rounded-circle" style="width: 64px; height: 64px; object-fit: cover;">
+                        <div class="flex-shrink-0"> 
+                            <img src="{{ $review->user->img_path ? Storage::url($review->user->img_path) : asset('storage/profile_photos/default_user.png') }}" class="rounded-circle" style="width: 64px; height: 64px; object-fit: cover;">
                         </div>
                         <div class="ms-3 flex-grow-1">
-                            <div class="d-flex justify-content-between">
-                                <h5 class="mt-0 fw-bold">{{ $review->user->name }}</h5>
-                                <small class="text-muted">{{ $review->created_at->format('M d, Y') }}</small>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="mt-0 fw-bold mb-0">{{ $review->user->name }}</h5>
+                                
+                                <div class="d-flex align-items-center gap-3">
+                                    <small class="text-muted">{{ $review->created_at->format('M d, Y') }}</small>
+                                     
+                                    @if(Auth::check() && Auth::user()->role === 'admin')
+                                        <form action="{{ route('admin.reviews.destroy', $review->id) }}" method="POST" class="m-0 delete-review-form">
+                                            @csrf
+                                            @method('DELETE') 
+                                            <button type="button" class="btn btn-sm btn-link text-danger p-0 border-0 delete-review-btn" title="Delete as Admin">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="text-warning mb-2">
+                            <div class="text-warning my-2">
                                 @for($i = 0; $i < $review->rating; $i++) <i class="fas fa-star"></i> @endfor
                                 @for($i = 5; $i > $review->rating; $i--) <i class="far fa-star"></i> @endfor
                             </div>
@@ -205,4 +233,28 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelectorAll('.delete-review-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const form = this.closest('form');
+            Swal.fire({
+                title: 'Delete Review?',
+                text: "This will remove the review from the storefront.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
 @endsection
