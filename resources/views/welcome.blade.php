@@ -5,16 +5,14 @@
 <div class="row align-items-center mb-5 pb-5 border-bottom">
     <div class="col-md-7">
         <h1 class="display-3 fw-bold font-playfair" style="color: var(--ink-blue);">The Art of <br><span style="color: var(--gold-accent); font-style: italic;">Fine Writing</span></h1>
-        
-        {{-- Added mb-5 for more space --}}
+         
         <p class="lead text-muted mt-3 mb-5" style="max-width: 500px;">Discover our curated collection of luxury fountain pens, premium bottled inks, and archival-quality paper.</p>
     </div>
     <div class="col-md-5"> 
         <div class="card shadow-sm border-0 p-4" style="background-color: var(--ink-blue);">
             <h5 class="text-white mb-3 font-playfair">Find Your Next Instrument</h5>
             <form action="{{ route('home') }}" method="GET">
-                <div class="input-group">
-                    {{-- Added font-size styling --}}
+                <div class="input-group"> 
                     <input type="text" name="search" class="form-control" placeholder="Search by name, brand..." value="{{ request('search') }}" style="font-size: 0.9rem; border-radius: 2px;">
                     <button class="btn fw-bold" style="background-color: var(--gold-accent); color: var(--ink-blue); border-radius: 2px;" type="submit">
                         <i class="fas fa-search"></i> Search

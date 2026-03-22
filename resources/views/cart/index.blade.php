@@ -28,8 +28,7 @@
                                     $subtotal = $details['price'] * $details['quantity']; 
                                 @endphp
                                 <tr>
-                                    <td class="ps-4">
-                                        {{-- Added data-subtotal for JS calculation --}}
+                                    <td class="ps-4"> 
                                         <input type="checkbox" name="selected_items[]" value="{{ $id }}" 
                                                form="checkout-form" 
                                                class="form-check-input item-checkbox" 
@@ -84,8 +83,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between mb-4">
-                        <span class="fs-5">Total</span>
-                        {{-- The ID checkout-total allows JS to update this text --}}
+                        <span class="fs-5">Total</span> 
                         <span id="checkout-total" class="fs-5 fw-bold" style="color: var(--gold-accent);">₱0.00</span>
                     </div>
                     

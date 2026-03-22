@@ -11,8 +11,9 @@
             <div class="col-md-4 mb-4">
                 <h5 class="footer-heading">Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('home') }}" class="text-white-50 text-decoration-none">Shop Pens</a></li>
-                    <li><a href="{{ route('home') }}" class="text-white-50 text-decoration-none">Shop Inks</a></li>
+                    <li><a href="{{ route('home', ['category' => 1]) }}" class="text-white-50 text-decoration-none">Shop Pens</a></li>
+                    <li><a href="{{ route('home', ['category' => 2]) }}" class="text-white-50 text-decoration-none">Shop Inks</a></li>
+                    <li><a href="{{ route('home', ['category' => 3]) }}" class="text-white-50 text-decoration-none">Shop Papers</a></li>
                 </ul>
             </div>
              

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2026 at 04:23 PM
+-- Generation Time: Mar 22, 2026 at 03:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,6 +54,7 @@ CREATE TABLE `cache_locks` (
 CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
+  `img_path` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -63,10 +64,10 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Fountain Pens', 'Luxury writing instruments.', '2026-02-23 04:40:58', '2026-02-23 04:40:58'),
-(2, 'Inks', 'Bottled fountain pen inks.', '2026-02-23 04:40:58', '2026-02-23 04:40:58'),
-(3, 'Paper', 'Fountain pen friendly notebooks.', '2026-02-23 04:40:58', '2026-02-23 04:40:58');
+INSERT INTO `categories` (`id`, `name`, `img_path`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Fountain Pens', 'categories/S00JkanlrlgaapcJZjoqK866dbWZ6YvCyxdjH9iB.png', 'Luxury writing instruments.', '2026-03-21 23:45:01', '2026-03-22 05:38:18'),
+(2, 'Inks', 'categories/JU4LFfdSgyriNAlqSrKs4OdWJ80T1Qhnb77BeXVz.png', 'Bottled fountain pen inks.', '2026-03-21 23:45:01', '2026-03-22 00:05:47'),
+(3, 'Paper', 'categories/vFa3pB6hyTx6tcC4uQWzgSozZbKrlNb6TCw6iq1H.png', 'Fountain pen friendly notebooks.', '2026-03-21 23:45:01', '2026-03-22 05:45:21');
 
 -- --------------------------------------------------------
 
@@ -140,7 +141,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
 (4, '2026_02_23_112802_create_products_tables', 1),
-(5, '2026_02_23_112959_create_trasaction_tables', 1);
+(5, '2026_02_23_112959_create_trasaction_tables', 1),
+(6, '2026_03_22_072152_add_image_to_categories_table', 1);
 
 -- --------------------------------------------------------
 
@@ -163,8 +165,56 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `status`, `total_price`, `transaction_date`, `created_at`, `updated_at`) VALUES
-(1, 2, 'completed', 1200.00, '2026-03-07 14:21:20', '2026-03-07 06:21:20', '2026-03-07 06:22:01'),
-(2, 2, 'completed', 16500.00, '2026-03-07 14:28:54', '2026-03-07 06:28:54', '2026-03-07 06:29:48');
+(1, 6, 'completed', 5600.00, '2026-03-22 07:45:01', '2025-01-13 23:45:01', '2026-03-21 23:45:01'),
+(2, 10, 'shipped', 1900.00, '2026-03-22 07:45:01', '2025-03-14 23:45:01', '2026-03-21 23:45:01'),
+(3, 5, 'cancelled', 18100.00, '2026-03-22 07:45:01', '2025-07-23 23:45:01', '2026-03-21 23:45:01'),
+(4, 3, 'completed', 18300.00, '2026-03-22 07:45:01', '2025-09-13 23:45:01', '2026-03-21 23:45:01'),
+(5, 10, 'completed', 33000.00, '2026-03-22 07:45:01', '2024-10-07 23:45:01', '2026-03-21 23:45:01'),
+(6, 6, 'completed', 4100.00, '2026-03-22 07:45:01', '2025-04-13 23:45:01', '2026-03-21 23:45:01'),
+(7, 3, 'completed', 34700.00, '2026-03-22 07:45:01', '2025-02-26 23:45:01', '2026-03-21 23:45:01'),
+(8, 2, 'pending', 57650.00, '2026-03-22 07:45:01', '2024-04-26 23:45:01', '2026-03-21 23:45:01'),
+(9, 8, 'cancelled', 3650.00, '2026-03-22 07:45:01', '2025-10-22 23:45:01', '2026-03-21 23:45:01'),
+(10, 9, 'pending', 1650.00, '2026-03-22 07:45:01', '2025-04-08 23:45:01', '2026-03-21 23:45:01'),
+(11, 10, 'completed', 16900.00, '2026-03-22 07:45:01', '2024-05-31 23:45:01', '2026-03-21 23:45:01'),
+(12, 3, 'completed', 1800.00, '2026-03-22 07:45:01', '2024-09-02 23:45:01', '2026-03-21 23:45:01'),
+(13, 4, 'shipped', 5300.00, '2026-03-22 07:45:01', '2025-04-07 23:45:01', '2026-03-21 23:45:01'),
+(14, 6, 'completed', 4800.00, '2026-03-22 07:45:01', '2025-04-06 23:45:01', '2026-03-21 23:45:01'),
+(15, 6, 'completed', 145000.00, '2026-03-22 07:45:01', '2024-04-08 23:45:01', '2026-03-21 23:45:01'),
+(16, 3, 'completed', 33800.00, '2026-03-22 07:45:01', '2025-03-12 23:45:01', '2026-03-21 23:45:01'),
+(17, 3, 'completed', 5200.00, '2026-03-22 07:45:01', '2024-05-31 23:45:01', '2026-03-21 23:45:01'),
+(18, 3, 'pending', 4350.00, '2026-03-22 07:45:01', '2026-01-10 23:45:01', '2026-03-21 23:45:01'),
+(19, 4, 'pending', 850.00, '2026-03-22 07:45:01', '2025-05-03 23:45:01', '2026-03-21 23:45:01'),
+(20, 10, 'completed', 58500.00, '2026-03-22 07:45:01', '2024-09-18 23:45:01', '2026-03-21 23:45:01'),
+(21, 2, 'shipped', 120000.00, '2026-03-22 07:45:01', '2025-03-24 23:45:01', '2026-03-21 23:45:01'),
+(22, 6, 'pending', 8250.00, '2026-03-22 07:45:01', '2025-09-27 23:45:01', '2026-03-21 23:45:01'),
+(23, 9, 'pending', 1200.00, '2026-03-22 07:45:01', '2024-08-28 23:45:01', '2026-03-21 23:45:01'),
+(24, 9, 'pending', 7050.00, '2026-03-22 07:45:01', '2025-04-19 23:45:01', '2026-03-21 23:45:01'),
+(25, 8, 'pending', 62950.00, '2026-03-22 07:45:01', '2024-09-20 23:45:01', '2026-03-21 23:45:01'),
+(26, 2, 'completed', 32750.00, '2026-03-22 07:45:01', '2025-06-27 23:45:01', '2026-03-21 23:45:01'),
+(27, 4, 'completed', 3000.00, '2026-03-22 07:45:01', '2024-06-05 23:45:01', '2026-03-21 23:45:01'),
+(28, 2, 'completed', 2400.00, '2026-03-22 07:45:01', '2024-11-29 23:45:01', '2026-03-21 23:45:01'),
+(29, 9, 'pending', 1100.00, '2026-03-22 07:45:01', '2024-11-18 23:45:01', '2026-03-21 23:45:01'),
+(30, 6, 'completed', 56550.00, '2026-03-22 07:45:01', '2025-02-10 23:45:01', '2026-03-21 23:45:01'),
+(31, 4, 'pending', 7500.00, '2026-03-22 07:45:01', '2024-07-23 23:45:01', '2026-03-21 23:45:02'),
+(32, 8, 'pending', 31000.00, '2026-03-22 07:45:02', '2025-10-09 23:45:02', '2026-03-21 23:45:02'),
+(33, 6, 'completed', 36300.00, '2026-03-22 07:45:02', '2024-06-05 23:45:02', '2026-03-21 23:45:02'),
+(34, 9, 'completed', 6150.00, '2026-03-22 07:45:02', '2024-10-17 23:45:02', '2026-03-21 23:45:02'),
+(35, 5, 'completed', 31050.00, '2026-03-22 07:45:02', '2025-09-17 23:45:02', '2026-03-21 23:45:02'),
+(36, 10, 'cancelled', 1400.00, '2026-03-22 07:45:02', '2024-07-16 23:45:02', '2026-03-21 23:45:02'),
+(37, 5, 'completed', 91000.00, '2026-03-22 07:45:02', '2025-08-04 23:45:02', '2026-03-21 23:45:02'),
+(38, 3, 'completed', 13700.00, '2026-03-22 07:45:02', '2024-11-17 23:45:02', '2026-03-21 23:45:02'),
+(39, 4, 'completed', 2400.00, '2026-03-22 07:45:02', '2025-09-30 23:45:02', '2026-03-21 23:45:02'),
+(40, 8, 'completed', 59200.00, '2026-03-22 07:45:02', '2025-09-08 23:45:02', '2026-03-21 23:45:02'),
+(41, 7, 'completed', 15850.00, '2026-03-22 07:45:02', '2025-01-15 23:45:02', '2026-03-21 23:45:02'),
+(42, 2, 'cancelled', 6400.00, '2026-03-22 07:45:02', '2025-12-13 23:45:02', '2026-03-21 23:45:02'),
+(43, 10, 'cancelled', 24100.00, '2026-03-22 07:45:02', '2025-11-11 23:45:02', '2026-03-21 23:45:02'),
+(44, 10, 'completed', 95800.00, '2026-03-22 07:45:02', '2026-03-19 23:45:02', '2026-03-21 23:45:02'),
+(45, 2, 'completed', 5750.00, '2026-03-22 07:45:02', '2026-02-17 23:45:02', '2026-03-22 06:00:57'),
+(46, 8, 'pending', 18350.00, '2026-03-22 07:45:02', '2024-07-21 23:45:02', '2026-03-21 23:45:02'),
+(47, 9, 'pending', 2400.00, '2026-03-22 07:45:02', '2024-10-20 23:45:02', '2026-03-21 23:45:02'),
+(48, 9, 'shipped', 13450.00, '2026-03-22 07:45:02', '2024-04-03 23:45:02', '2026-03-21 23:45:02'),
+(49, 3, 'shipped', 3300.00, '2026-03-22 07:45:02', '2024-09-28 23:45:02', '2026-03-21 23:45:02'),
+(50, 3, 'completed', 28000.00, '2026-03-22 07:45:02', '2024-07-01 23:45:02', '2026-03-21 23:45:02');
 
 -- --------------------------------------------------------
 
@@ -187,8 +237,112 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
-(1, 1, 29, 1, 1200.00, '2026-03-07 06:21:20', '2026-03-07 06:21:20'),
-(2, 2, 23, 1, 16500.00, '2026-03-07 06:28:54', '2026-03-07 06:28:54');
+(1, 1, 8, 2, 1200.00, '2025-01-13 23:45:01', '2025-01-13 23:45:01'),
+(2, 1, 4, 1, 3200.00, '2025-01-13 23:45:01', '2025-01-13 23:45:01'),
+(3, 2, 17, 2, 950.00, '2025-03-14 23:45:01', '2025-03-14 23:45:01'),
+(4, 3, 5, 2, 1800.00, '2025-07-23 23:45:01', '2025-07-23 23:45:01'),
+(5, 3, 7, 1, 14500.00, '2025-07-23 23:45:01', '2025-07-23 23:45:01'),
+(6, 4, 5, 1, 1800.00, '2025-09-13 23:45:01', '2025-09-13 23:45:01'),
+(7, 4, 1, 1, 16500.00, '2025-09-13 23:45:01', '2025-09-13 23:45:01'),
+(8, 5, 1, 2, 16500.00, '2024-10-07 23:45:01', '2024-10-07 23:45:01'),
+(9, 6, 14, 1, 1850.00, '2025-04-13 23:45:01', '2025-04-13 23:45:01'),
+(10, 6, 11, 1, 550.00, '2025-04-13 23:45:01', '2025-04-13 23:45:01'),
+(11, 6, 18, 2, 850.00, '2025-04-13 23:45:01', '2025-04-13 23:45:01'),
+(12, 7, 1, 2, 16500.00, '2025-02-26 23:45:01', '2025-02-26 23:45:01'),
+(13, 7, 18, 2, 850.00, '2025-02-26 23:45:01', '2025-02-26 23:45:01'),
+(14, 8, 3, 2, 28000.00, '2024-04-26 23:45:01', '2024-04-26 23:45:01'),
+(15, 8, 13, 1, 1650.00, '2024-04-26 23:45:01', '2024-04-26 23:45:01'),
+(16, 9, 14, 1, 1850.00, '2025-10-22 23:45:01', '2025-10-22 23:45:01'),
+(17, 9, 5, 1, 1800.00, '2025-10-22 23:45:01', '2025-10-22 23:45:01'),
+(18, 10, 11, 1, 550.00, '2025-04-08 23:45:01', '2025-04-08 23:45:01'),
+(19, 10, 11, 2, 550.00, '2025-04-08 23:45:01', '2025-04-08 23:45:01'),
+(20, 11, 9, 1, 1200.00, '2024-05-31 23:45:01', '2024-05-31 23:45:01'),
+(21, 11, 8, 1, 1200.00, '2024-05-31 23:45:01', '2024-05-31 23:45:01'),
+(22, 11, 7, 1, 14500.00, '2024-05-31 23:45:01', '2024-05-31 23:45:01'),
+(23, 12, 5, 1, 1800.00, '2024-09-02 23:45:01', '2024-09-02 23:45:01'),
+(24, 13, 16, 2, 1250.00, '2025-04-07 23:45:01', '2025-04-07 23:45:01'),
+(25, 13, 15, 2, 1400.00, '2025-04-07 23:45:01', '2025-04-07 23:45:01'),
+(26, 14, 11, 2, 550.00, '2025-04-06 23:45:01', '2025-04-06 23:45:01'),
+(27, 14, 14, 2, 1850.00, '2025-04-06 23:45:01', '2025-04-06 23:45:01'),
+(28, 15, 7, 2, 14500.00, '2024-04-08 23:45:01', '2024-04-08 23:45:01'),
+(29, 15, 6, 2, 45500.00, '2024-04-08 23:45:01', '2024-04-08 23:45:01'),
+(30, 15, 2, 2, 12500.00, '2024-04-08 23:45:01', '2024-04-08 23:45:01'),
+(31, 16, 8, 2, 1200.00, '2025-03-12 23:45:01', '2025-03-12 23:45:01'),
+(32, 16, 8, 2, 1200.00, '2025-03-12 23:45:01', '2025-03-12 23:45:01'),
+(33, 16, 7, 2, 14500.00, '2025-03-12 23:45:01', '2025-03-12 23:45:01'),
+(34, 17, 15, 2, 1400.00, '2024-05-31 23:45:01', '2024-05-31 23:45:01'),
+(35, 17, 9, 2, 1200.00, '2024-05-31 23:45:01', '2024-05-31 23:45:01'),
+(36, 18, 10, 1, 550.00, '2026-01-10 23:45:01', '2026-01-10 23:45:01'),
+(37, 18, 15, 1, 1400.00, '2026-01-10 23:45:01', '2026-01-10 23:45:01'),
+(38, 18, 8, 2, 1200.00, '2026-01-10 23:45:01', '2026-01-10 23:45:01'),
+(39, 19, 18, 1, 850.00, '2025-05-03 23:45:01', '2025-05-03 23:45:01'),
+(40, 20, 15, 1, 1400.00, '2024-09-18 23:45:01', '2024-09-18 23:45:01'),
+(41, 20, 10, 2, 550.00, '2024-09-18 23:45:01', '2024-09-18 23:45:01'),
+(42, 20, 3, 2, 28000.00, '2024-09-18 23:45:01', '2024-09-18 23:45:01'),
+(43, 21, 6, 2, 45500.00, '2025-03-24 23:45:01', '2025-03-24 23:45:01'),
+(44, 21, 7, 2, 14500.00, '2025-03-24 23:45:01', '2025-03-24 23:45:01'),
+(45, 22, 17, 1, 950.00, '2025-09-27 23:45:01', '2025-09-27 23:45:01'),
+(46, 22, 5, 2, 1800.00, '2025-09-27 23:45:01', '2025-09-27 23:45:01'),
+(47, 22, 14, 2, 1850.00, '2025-09-27 23:45:01', '2025-09-27 23:45:01'),
+(48, 23, 9, 1, 1200.00, '2024-08-28 23:45:01', '2024-08-28 23:45:01'),
+(49, 24, 15, 2, 1400.00, '2025-04-19 23:45:01', '2025-04-19 23:45:01'),
+(50, 24, 11, 1, 550.00, '2025-04-19 23:45:01', '2025-04-19 23:45:01'),
+(51, 24, 14, 2, 1850.00, '2025-04-19 23:45:01', '2025-04-19 23:45:01'),
+(52, 25, 4, 2, 3200.00, '2024-09-20 23:45:01', '2024-09-20 23:45:01'),
+(53, 25, 3, 2, 28000.00, '2024-09-20 23:45:01', '2024-09-20 23:45:01'),
+(54, 25, 11, 1, 550.00, '2024-09-20 23:45:01', '2024-09-20 23:45:01'),
+(55, 26, 17, 2, 950.00, '2025-06-27 23:45:01', '2025-06-27 23:45:01'),
+(56, 26, 14, 1, 1850.00, '2025-06-27 23:45:01', '2025-06-27 23:45:01'),
+(57, 26, 7, 2, 14500.00, '2025-06-27 23:45:01', '2025-06-27 23:45:01'),
+(58, 27, 10, 2, 550.00, '2024-06-05 23:45:01', '2024-06-05 23:45:01'),
+(59, 27, 17, 2, 950.00, '2024-06-05 23:45:01', '2024-06-05 23:45:01'),
+(60, 28, 9, 2, 1200.00, '2024-11-29 23:45:01', '2024-11-29 23:45:01'),
+(61, 29, 12, 1, 1100.00, '2024-11-18 23:45:01', '2024-11-18 23:45:01'),
+(62, 30, 3, 2, 28000.00, '2025-02-10 23:45:01', '2025-02-10 23:45:01'),
+(63, 30, 10, 1, 550.00, '2025-02-10 23:45:01', '2025-02-10 23:45:01'),
+(64, 31, 16, 2, 1250.00, '2024-07-23 23:45:01', '2024-07-23 23:45:01'),
+(65, 31, 16, 2, 1250.00, '2024-07-23 23:45:01', '2024-07-23 23:45:01'),
+(66, 31, 16, 2, 1250.00, '2024-07-23 23:45:01', '2024-07-23 23:45:01'),
+(67, 32, 7, 1, 14500.00, '2025-10-09 23:45:02', '2025-10-09 23:45:02'),
+(68, 32, 1, 1, 16500.00, '2025-10-09 23:45:02', '2025-10-09 23:45:02'),
+(69, 33, 13, 2, 1650.00, '2024-06-05 23:45:02', '2024-06-05 23:45:02'),
+(70, 33, 1, 2, 16500.00, '2024-06-05 23:45:02', '2024-06-05 23:45:02'),
+(71, 34, 13, 1, 1650.00, '2024-10-17 23:45:02', '2024-10-17 23:45:02'),
+(72, 34, 8, 1, 1200.00, '2024-10-17 23:45:02', '2024-10-17 23:45:02'),
+(73, 34, 13, 2, 1650.00, '2024-10-17 23:45:02', '2024-10-17 23:45:02'),
+(74, 35, 9, 1, 1200.00, '2025-09-17 23:45:02', '2025-09-17 23:45:02'),
+(75, 35, 3, 1, 28000.00, '2025-09-17 23:45:02', '2025-09-17 23:45:02'),
+(76, 35, 14, 1, 1850.00, '2025-09-17 23:45:02', '2025-09-17 23:45:02'),
+(77, 36, 15, 1, 1400.00, '2024-07-16 23:45:02', '2024-07-16 23:45:02'),
+(78, 37, 7, 2, 14500.00, '2025-08-04 23:45:02', '2025-08-04 23:45:02'),
+(79, 37, 6, 1, 45500.00, '2025-08-04 23:45:02', '2025-08-04 23:45:02'),
+(80, 37, 1, 1, 16500.00, '2025-08-04 23:45:02', '2025-08-04 23:45:02'),
+(81, 38, 2, 1, 12500.00, '2024-11-17 23:45:02', '2024-11-17 23:45:02'),
+(82, 38, 8, 1, 1200.00, '2024-11-17 23:45:02', '2024-11-17 23:45:02'),
+(83, 39, 8, 2, 1200.00, '2025-09-30 23:45:02', '2025-09-30 23:45:02'),
+(84, 40, 15, 1, 1400.00, '2025-09-08 23:45:02', '2025-09-08 23:45:02'),
+(85, 40, 5, 1, 1800.00, '2025-09-08 23:45:02', '2025-09-08 23:45:02'),
+(86, 40, 3, 2, 28000.00, '2025-09-08 23:45:02', '2025-09-08 23:45:02'),
+(87, 41, 2, 1, 12500.00, '2025-01-15 23:45:02', '2025-01-15 23:45:02'),
+(88, 41, 10, 1, 550.00, '2025-01-15 23:45:02', '2025-01-15 23:45:02'),
+(89, 41, 15, 2, 1400.00, '2025-01-15 23:45:02', '2025-01-15 23:45:02'),
+(90, 42, 4, 2, 3200.00, '2025-12-13 23:45:02', '2025-12-13 23:45:02'),
+(91, 43, 4, 2, 3200.00, '2025-11-11 23:45:02', '2025-11-11 23:45:02'),
+(92, 43, 9, 1, 1200.00, '2025-11-11 23:45:02', '2025-11-11 23:45:02'),
+(93, 43, 1, 1, 16500.00, '2025-11-11 23:45:02', '2025-11-11 23:45:02'),
+(94, 44, 5, 2, 1800.00, '2026-03-19 23:45:02', '2026-03-19 23:45:02'),
+(95, 44, 6, 2, 45500.00, '2026-03-19 23:45:02', '2026-03-19 23:45:02'),
+(96, 44, 8, 1, 1200.00, '2026-03-19 23:45:02', '2026-03-19 23:45:02'),
+(97, 45, 16, 2, 1250.00, '2026-02-17 23:45:02', '2026-02-17 23:45:02'),
+(98, 45, 18, 1, 850.00, '2026-02-17 23:45:02', '2026-02-17 23:45:02'),
+(99, 45, 9, 2, 1200.00, '2026-02-17 23:45:02', '2026-02-17 23:45:02'),
+(100, 46, 1, 1, 16500.00, '2024-07-21 23:45:02', '2024-07-21 23:45:02'),
+(101, 46, 14, 1, 1850.00, '2024-07-21 23:45:02', '2024-07-21 23:45:02'),
+(102, 47, 9, 2, 1200.00, '2024-10-20 23:45:02', '2024-10-20 23:45:02'),
+(103, 48, 2, 1, 12500.00, '2024-04-03 23:45:02', '2024-04-03 23:45:02'),
+(104, 48, 17, 1, 950.00, '2024-04-03 23:45:02', '2024-04-03 23:45:02'),
+(105, 49, 13, 2, 1650.00, '2024-09-28 23:45:02', '2024-09-28 23:45:02'),
+(106, 50, 3, 1, 28000.00, '2024-07-01 23:45:02', '2024-07-01 23:45:02');
 
 -- --------------------------------------------------------
 
@@ -227,39 +381,24 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `brand`, `description`, `price`, `stock`, `img_path`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Irish Green', 'Montblanc', 'A vibrant, elegant green ink that brings the lush landscapes of Ireland to your pages. Known for its exceptional flow, crisp lines, and striking shading capabilities, this premium ink behaves flawlessly in both vintage and modern fountain pens. It comes housed in Montblanc\'\'s iconic, heavy glass \"shoe\" bottle, featuring a distinct front compartment for easy filling even when the ink level runs low.', 1850.00, 15, 'products/CuJO0dJAyUada4my2bvbXqnxIa4EZAWRBLQqRKi6.png', NULL, '2026-02-23 04:52:30', '2026-03-06 21:56:51'),
-(2, 1, 'Homo Sapiens Bronze Age', 'Visconti', 'Crafted from the basaltic lava of Mount Etna in Italy, this remarkable writing instrument is virtually unbreakable, slightly hygroscopic (absorbs hand moisture), and velvety to the touch. It features solid bronze trims that develop a beautiful, unique patina over time. Equipped with Visconti\'\'s revolutionary 18k gold in-house nib and a high-capacity vacuum power filler system, this pen is a true masterpiece of Italian engineering.', 45500.00, 3, 'products/thuzn9BiMkPCxixRjmXeWHRX2cjRnKWoP2mpnBCv.png', NULL, '2026-02-23 18:25:54', '2026-03-06 21:39:15'),
-(4, 1, 'Test Pen B', 'Pilot', 'N/A', 2000.00, 15, NULL, '2026-02-26 02:40:20', '2026-02-26 02:03:46', '2026-02-26 02:40:20'),
-(6, 1, 'Test Pen B', 'Pilot', 'N/A', 2000.00, 15, NULL, '2026-02-26 16:33:49', '2026-02-26 02:37:25', '2026-02-26 16:33:49'),
-(7, 2, 'Blue Ink', 'Diamine', 'Deep blue color.', 500.00, 50, NULL, '2026-02-26 16:33:53', '2026-02-26 02:37:25', '2026-02-26 16:33:53'),
-(8, 3, 'Notebook X', 'Rhodia', 'High quality paper.', 350.00, 100, NULL, '2026-02-26 16:33:42', '2026-02-26 02:37:25', '2026-02-26 16:33:42'),
-(9, 1, 'Test', 'Test', 'N/A', 234.00, 234, 'products/mIJfN4jyozWpmW4FsdiIkVKSF1NWWEC9Xcxu4nf2.jpg', '2026-02-26 02:50:06', '2026-02-26 02:48:52', '2026-02-26 02:50:06'),
-(10, 1, 'Test', 'Test', 'sd', 234.00, 234, 'products/Jfkfg8MIZM1gm48EYKAs3kD5b2XG3POXpIDJeD8V.png', '2026-02-26 02:50:11', '2026-02-26 02:49:56', '2026-02-26 02:50:11'),
-(12, 1, 'Test Pen B', 'Pilot', 'N/A', 2000.00, 15, NULL, '2026-02-26 16:23:10', '2026-02-26 03:22:15', '2026-02-26 16:23:10'),
-(13, 2, 'Blue Ink', 'Diamine', 'Deep blue color.', 500.00, 50, NULL, '2026-02-26 16:23:03', '2026-02-26 03:22:15', '2026-02-26 16:23:03'),
-(14, 3, 'Notebook X', 'Rhodia', 'High quality paper.', 350.00, 100, NULL, '2026-02-26 16:22:58', '2026-02-26 03:22:15', '2026-02-26 16:22:58'),
-(16, 1, 'Test Pen B', 'Pilot', 'N/A', 2000.00, 15, NULL, '2026-02-26 03:26:26', '2026-02-26 03:22:26', '2026-02-26 03:26:26'),
-(17, 2, 'Blue Ink', 'Diamine', 'Deep blue color.', 500.00, 50, NULL, '2026-02-26 03:26:18', '2026-02-26 03:22:26', '2026-02-26 03:26:18'),
-(18, 3, 'Notebook X', 'Rhodia', 'High quality paper.', 350.00, 100, NULL, '2026-02-26 16:37:10', '2026-02-26 03:22:26', '2026-02-26 16:37:10'),
-(20, 1, 'Test Pen B', 'Pilot', 'N/A', 2000.00, 15, NULL, '2026-02-26 16:35:32', '2026-02-26 16:35:05', '2026-02-26 16:35:32'),
-(21, 2, 'Blue Ink', 'Diamine', 'Deep blue color.', 500.00, 50, NULL, '2026-02-26 16:35:26', '2026-02-26 16:35:05', '2026-02-26 16:35:26'),
-(22, 3, 'Notebook X', 'Rhodia', 'High quality paper.', 350.00, 100, NULL, '2026-02-26 16:43:20', '2026-02-26 16:35:05', '2026-02-26 16:43:20'),
-(23, 1, 'Custom 823 Fountain Pen - Amber', 'Pilot', 'A demonstrator barrel featuring a high-capacity vacuum filling system and a smooth 14k gold nib. A true workhorse pen for serious writers.', 16500.00, 13, 'products/dOQOg9IWbhRWo4Yi2ljVEtSmsLvtf9Olu7ZByziC.png', NULL, '2026-02-27 00:52:49', '2026-03-07 06:29:48'),
-(24, 1, 'Lamy 2000 Fountain Pen - Black Makrolon', 'Lamy', 'A timeless Bauhaus design from 1966. Features a fiberglass and brushed stainless steel body, piston filling system, and a platinum-coated 14k gold nib.', 12500.00, 8, 'products/diTJ6IEnX39E4nSUmQ1OTxDNRrFS2kgfBrkUgjvc.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:00:52'),
-(25, 1, 'Souverän M800 Fountain Pen - Green/Black', 'Pelikan', 'The classic German flagship pen. Features a brass-mechanism piston filler, a striped cellulose acetate barrel, and an incredibly smooth 18k bi-color gold nib.', 28000.00, 5, 'products/o87yJlGEq6YkIpW91bX1ZTWjkIbra1ueBxUoaQLP.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:03:47'),
-(26, 1, 'Procyon Fountain Pen - Deep Sea', 'Platinum', 'An excellent everyday carry pen featuring Platinum\'s \"Slip and Seal\" mechanism that prevents ink from drying out for up to a year.', 3200.00, 25, 'products/0oJ9VXdOFLlqMRAhYG3tWiqxeUaJ3FYYJgPuQ0If.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:07:07'),
-(27, 1, 'Eco Fountain Pen - Clear', 'TWSBI', 'An affordable, high-capacity piston filler demonstrator. Perfect for beginners and experts alike who want to see their ink slosh around inside the barrel.', 1800.00, 40, 'products/SX0gtYQwwWQqs12QIjNu1m0tagIc5iR0YwX1DiQ6.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:10:20'),
-(28, 1, '1911 Large Fountain Pen - Black/Gold', 'Sailor', 'A classic cigar-shaped pen known worldwide for having some of the most precise and feedback-rich 21k gold nibs ever manufactured.', 14500.00, 10, 'products/92eE2B2Z0SYPjx65XdMSW5OdXRmMwmNMCRYsVkYd.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:12:43'),
-(29, 2, 'Iroshizuku Kon-peki (Deep Blue)', 'Pilot', 'A vibrant, shading cerulean blue ink inspired by the color of a deep, clear summer sky. Exceptionally well-behaved and easy to clean.', 1200.00, 48, 'products/JmyDVBoo1z21tLNRGI0yGEvXuFw58dXPdaGXzvjH.png', NULL, '2026-02-27 00:52:49', '2026-03-07 06:22:01'),
-(30, 2, 'Iroshizuku Yama-budo (Crimson Glory Vine)', 'Pilot', 'A rich, sophisticated magenta-purple ink that shades beautifully and occasionally sheens gold on high-quality paper.', 1200.00, 35, 'products/Zjh4dt4Banhm3woooaL5q6GLSvEvDqBkx80aA5qu.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:19:14'),
-(31, 2, 'Oxblood', 'Diamine', 'A deep, dark red ink that heavily resembles dried blood. One of the most popular and distinct shading inks in the fountain pen community.', 550.00, 60, 'products/33Y9VoBBGgJ9uzsESKmAaI8cS0ekjy5FfgtyIaHT.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:23:08'),
-(32, 2, 'Aurora Borealis', 'Diamine', 'A stunning teal ink that exhibits massive amounts of red sheen when pooled on Tomoe River paper.', 550.00, 45, 'products/wZwxXsMWY9JCqAtSh0rP6M5ZMzq8be1DRQnE4PaA.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:26:34'),
-(33, 2, 'Perle Noire (Black)', 'Aurora', 'Widely considered one of the deepest, darkest, and best-flowing black inks available on the market. Safe for vintage and modern pens.', 1100.00, 30, 'products/Gl0edU9NTydKgzreR9xVzbRoIfh2u6KOfRQPhShv.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:30:53'),
-(34, 2, 'Emerald of Chivor (1670 Anniversary)', 'J. Herbin', 'A legendary teal ink containing gold shimmer particles and massive red sheen. Shake well before filling your pen.', 1650.00, 12, 'products/1OlO0s4SdeadQFl7lcBli3ihvgxJoEvlvYRYZwJ4.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:33:13'),
-(35, 3, 'Tomoe River 52gsm Notebook - A5 Dot Grid', 'Hobonichi', 'The gold standard for fountain pen paper. Incredibly thin 52gsm paper that shows off maximum ink sheen and shading with absolutely zero bleed-through.', 1400.00, 20, 'products/njHmuCYmWImnODheIc2yhO9qFwtPJ8OKC2Cjjb7U.png', NULL, '2026-02-27 00:52:49', '2026-03-06 22:35:22'),
-(36, 3, 'Rhodia Webnotebook - A5 Lined (Black)', 'Rhodia', 'Features 90gsm Clairefontaine ivory vellum paper. Incredibly smooth surface that prevents feathering. The perfect daily journal.', 1250.00, 30, 'products/0FT7iE9i0gFgvui6Pt4cOSaQFGmdfcOCC69vj9Va.png', NULL, '2026-02-27 00:52:49', '2026-03-07 01:39:15'),
-(37, 3, 'Mnemosyne Notebook - A5 Blank', 'Maruman', 'Premium Japanese paper designed specifically for smooth writing. Features micro-perforated pages and a durable plastic cover.', 950.00, 25, 'products/fprq10o3X9hQfbVtf0dHS2MPpMcz2rkKYNmjKvFQ.png', NULL, '2026-02-27 00:52:49', '2026-03-07 01:42:01'),
-(38, 3, 'Midori MD Notebook - A5 Grid', 'Midori', 'Minimalist design featuring cream-colored paper that provides excellent feedback for fountain pens without feathering.', 850.00, 40, 'products/tcwlRrASvjbvyTNnPIUTaNRNuRGWHprZQPGPRLRM.png', NULL, '2026-02-27 00:52:49', '2026-03-06 21:34:14');
+(1, 1, 'Custom 823 Fountain Pen - Amber', 'Pilot', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 16500.00, 15, 'products/gallery/823_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(2, 1, 'Lamy 2000 Fountain Pen', 'Lamy', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 12500.00, 8, 'products/gallery/lamy2000_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(3, 1, 'Souverän M800 - Green/Black', 'Pelikan', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 28000.00, 5, 'products/gallery/m800_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(4, 1, 'Procyon - Deep Sea', 'Platinum', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 3200.00, 25, 'products/gallery/deepSea_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(5, 1, 'Eco - Clear Demonstrator', 'TWSBI', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 1800.00, 40, 'products/gallery/ECOclear_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(6, 1, 'Homo Sapiens Bronze Age', 'Visconti', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 45500.00, 3, 'products/gallery/sapiens_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(7, 1, '1911 Large Fountain Pen', 'Sailor', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 14500.00, 10, 'products/gallery/1911_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(8, 2, 'Iroshizuku Kon-peki', 'Pilot', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 1200.00, 50, 'products/gallery/iroshizuku_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(9, 2, 'Iroshizuku Yama-budo', 'Pilot', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 1200.00, 33, 'products/gallery/yama-budo_1.png', NULL, '2026-03-21 23:45:01', '2026-03-22 06:00:57'),
+(10, 2, 'Oxblood (80ml)', 'Diamine', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 550.00, 60, 'products/gallery/oxblood_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(11, 2, 'Aurora Borealis', 'Diamine', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 550.00, 45, 'products/gallery/aurora_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(12, 2, 'Perle Noire (Black)', 'Aurora', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 1100.00, 30, 'products/gallery/perleNoire_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(13, 2, 'Emerald of Chivor', 'J. Herbin', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 1650.00, 12, 'products/gallery/1670_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(14, 2, 'Irish Green', 'Montblanc', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 1850.00, 15, 'products/gallery/igreen_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(15, 3, 'Tomoe River 52gsm A5', 'Hobonichi', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 1400.00, 20, 'products/gallery/tomoeRiver_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(16, 3, 'Webnotebook A5', 'Rhodia', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 1250.00, 28, 'products/R6Lm4QsHklMRXkAQFMBPZzGcrmWidZIjRprGlDwK.png', NULL, '2026-03-21 23:45:01', '2026-03-22 06:33:43'),
+(17, 3, 'Mnemosyne Notebook A5', 'Maruman', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 950.00, 25, 'products/gallery/mnemosyne_1.png', NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(18, 3, 'Midori MD Notebook - A5', 'Midori', 'A premium product for the discerning writer. High quality materials and exceptional craftsmanship. Perfect for your daily carry or desk setup.', 850.00, 39, 'products/gallery/midori_1.png', NULL, '2026-03-21 23:45:01', '2026-03-22 06:00:57');
 
 -- --------------------------------------------------------
 
@@ -280,44 +419,42 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `img_path`, `created_at`, `updated_at`) VALUES
-(6, 9, 'products/gallery/0R4qmaTz0qMGTSv6U82qJUqwSSbBqnIk2j5Y6uwo.png', '2026-02-26 02:48:52', '2026-02-26 02:48:52'),
-(7, 10, 'products/gallery/vscADKZvCaQsU7dvFFd6oB12x5mb33Xeu5xh2QnI.png', '2026-02-26 02:49:56', '2026-02-26 02:49:56'),
-(10, 23, 'products/gallery/bwfYX9z51gZ9l2Y28n00k1z4mT9nunrYdYNcgxug.png', '2026-03-02 16:34:18', '2026-03-02 16:34:18'),
-(11, 23, 'products/gallery/oG3SQthSuWScCE7xtnK2lVgzYzGYCeJbdJab6lKA.png', '2026-03-02 16:34:18', '2026-03-02 16:34:18'),
-(12, 38, 'products/gallery/RRqn4iblV0J0YCj7E9R2RQ0sqwtgwpjJEf76wJSo.png', '2026-03-06 21:34:14', '2026-03-06 21:34:14'),
-(13, 38, 'products/gallery/Ul1bUdlA1cZtyF8s2dCmCIOIf8JuJ6P7c2b5Ge83.png', '2026-03-06 21:34:14', '2026-03-06 21:34:14'),
-(14, 2, 'products/gallery/pIU7gKclaq1UxwTG3tFNVv5WJW03sOlP0oYtceG8.png', '2026-03-06 21:39:15', '2026-03-06 21:39:15'),
-(15, 2, 'products/gallery/tjfwd5ojyyP6J6OXX1IBb0ibEYQ0SK464898kRJS.png', '2026-03-06 21:39:15', '2026-03-06 21:39:15'),
-(17, 1, 'products/gallery/hFIOQOAPT1utnJe9GWq3wg3ekCQKa5VcYKjIHkDL.png', '2026-03-06 21:56:51', '2026-03-06 21:56:51'),
-(18, 1, 'products/gallery/ATdid0pcfPJ6yO2f6shOtW156xAg5gm1XIdokSLN.png', '2026-03-06 21:56:51', '2026-03-06 21:56:51'),
-(19, 24, 'products/gallery/sW7AxhEcfq6NQOLC92w5LcSJM9sYD0p3bkM3Ju3o.png', '2026-03-06 22:02:02', '2026-03-06 22:02:02'),
-(20, 24, 'products/gallery/OLv3Vw6O5Enjdyj8AApYEsijxSkgicHEElk4btG5.png', '2026-03-06 22:02:02', '2026-03-06 22:02:02'),
-(21, 25, 'products/gallery/iDqjnlppF6N85VCwjQTqHYQZKGGjVWlKvrYQJjDe.png', '2026-03-06 22:03:47', '2026-03-06 22:03:47'),
-(22, 25, 'products/gallery/bQRyY6JGuDjQ8mAgJ5pSR0KS5gO2Gu8bWVZL6us2.png', '2026-03-06 22:03:47', '2026-03-06 22:03:47'),
-(23, 26, 'products/gallery/iDTtcAxAsBDlof319MV0ulBPM8qGEGjwVyCMi2Dg.png', '2026-03-06 22:07:07', '2026-03-06 22:07:07'),
-(24, 26, 'products/gallery/dMQrTUqzhCCP96Goddj8ObRioDon67VL2E5h4eKN.png', '2026-03-06 22:07:07', '2026-03-06 22:07:07'),
-(25, 27, 'products/gallery/jBZDwxWWKmQSb2rRRGgcGSHB0IZwE3Jhoja0kqG8.png', '2026-03-06 22:10:20', '2026-03-06 22:10:20'),
-(26, 27, 'products/gallery/mWBb3chpE6ripx7ZtjOT5rRyKIpdVIjfBmir4MsA.png', '2026-03-06 22:10:20', '2026-03-06 22:10:20'),
-(27, 28, 'products/gallery/UPQkNwejUaFyDkoUrhEXPC2q9uGmqvNXoNwtZNGe.png', '2026-03-06 22:12:43', '2026-03-06 22:12:43'),
-(28, 28, 'products/gallery/poAR1aRaDcHOtraO8Z5Hr3fZWtWfWph1ya7eZ7qu.png', '2026-03-06 22:12:43', '2026-03-06 22:12:43'),
-(29, 29, 'products/gallery/NJXEpbKPNGQkLFOEq6Mq8I0ffQ63FxHYznBBYzRJ.png', '2026-03-06 22:16:06', '2026-03-06 22:16:06'),
-(30, 29, 'products/gallery/H4g4QFxv4pJiE3pEripNCP4XDIHJoHOU32Egor7P.png', '2026-03-06 22:16:06', '2026-03-06 22:16:06'),
-(31, 30, 'products/gallery/Ydzwg9MsrgJ4ijw6bs81wwh1Lp2G8qjj95ufocLo.png', '2026-03-06 22:19:14', '2026-03-06 22:19:14'),
-(32, 30, 'products/gallery/bm4y7xFcdZYtPj5I7dmPxcLHjrxrUZGcM5Wg2iln.png', '2026-03-06 22:19:14', '2026-03-06 22:19:14'),
-(33, 31, 'products/gallery/OHfMvgYeGJvflV9lwbnbSURul6LzjWd9GTZVTzH1.png', '2026-03-06 22:23:08', '2026-03-06 22:23:08'),
-(34, 31, 'products/gallery/yabPcIWnOzExOYjrs2EAlTYuCTl87nCVk6r5oRq3.png', '2026-03-06 22:23:08', '2026-03-06 22:23:08'),
-(35, 32, 'products/gallery/wc2nqMIXz6HuUwXbsVyNW8mhFeupLyQNMciU0MJq.png', '2026-03-06 22:26:34', '2026-03-06 22:26:34'),
-(36, 32, 'products/gallery/klYrWZ8cNZjConz3FxMEHoDPhSH9z6C0P9KiMq6H.png', '2026-03-06 22:26:34', '2026-03-06 22:26:34'),
-(37, 33, 'products/gallery/z0hggGK5d5cj1FF3ISd2eXVKIhjMnQmy2bJVYvjx.png', '2026-03-06 22:30:53', '2026-03-06 22:30:53'),
-(38, 33, 'products/gallery/I3LxebMhGsUoVs9UDZYMuNGFb2Ke8SGJpl4GeiFK.png', '2026-03-06 22:30:53', '2026-03-06 22:30:53'),
-(39, 34, 'products/gallery/FXWIOCzvKFPo2BqFnPuS26GraOo8Go3PhhQJ8kwH.png', '2026-03-06 22:33:13', '2026-03-06 22:33:13'),
-(40, 34, 'products/gallery/J3x0Xsf1J0zce3Igp7RAD6yFVancRMH2A601U7qu.png', '2026-03-06 22:33:13', '2026-03-06 22:33:13'),
-(41, 35, 'products/gallery/ikQovH6g8mXH82BXuaB5DcxyYEGW1QrcvAvKq2hC.png', '2026-03-06 22:35:22', '2026-03-06 22:35:22'),
-(42, 35, 'products/gallery/ZPJ3klqy4ULuwMGP10WwKcCF7ehIJk3nyAXaBedl.png', '2026-03-06 22:35:22', '2026-03-06 22:35:22'),
-(43, 36, 'products/gallery/0lyK7GKlxzCNkmgH0Kk73xibQBVSveQquIfWxpDG.png', '2026-03-07 01:39:15', '2026-03-07 01:39:15'),
-(44, 36, 'products/gallery/nskHWcqAHk1uULf0WcadHa2irBXBvCdeBuR6WlyZ.jpg', '2026-03-07 01:39:15', '2026-03-07 01:39:15'),
-(45, 37, 'products/gallery/quFFahRnLRyL6ChdmCExdenEeXe2pCfNhsawfBK4.png', '2026-03-07 01:42:01', '2026-03-07 01:42:01'),
-(46, 37, 'products/gallery/yuzIGShPHyCbtfgyYcuFjHLnbLPy5cnN1LXQiAgM.png', '2026-03-07 01:42:01', '2026-03-07 01:42:01');
+(16, 8, 'products/gallery/iroshizuku_3.png', '2026-03-22 14:21:26', '2026-03-22 14:21:26'),
+(32, 17, 'products/gallery/mnemosyne_2.png', '2026-03-22 14:21:26', '2026-03-22 14:21:26'),
+(47, 8, 'products/gallery/iroshizuku_2.png', '2026-03-22 14:23:49', '2026-03-22 14:23:49'),
+(50, 9, 'products/gallery/yama-budo_3.png', '2026-03-22 14:23:49', '2026-03-22 14:23:49'),
+(53, 11, 'products/gallery/aurora_3.png', '2026-03-22 14:23:49', '2026-03-22 14:23:49'),
+(57, 13, 'products/gallery/1670_3.png', '2026-03-22 14:23:49', '2026-03-22 14:23:49'),
+(65, 1, 'products/gallery/823_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(66, 1, 'products/gallery/823_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(67, 2, 'products/gallery/lamy2000_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(68, 2, 'products/gallery/lamy2000_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(69, 3, 'products/gallery/m800_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(70, 3, 'products/gallery/m800_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(71, 4, 'products/gallery/deepSea_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(72, 4, 'products/gallery/deepSea_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(73, 5, 'products/gallery/ECOclear_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(74, 5, 'products/gallery/ECOclear_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(75, 6, 'products/gallery/sapiens_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(76, 6, 'products/gallery/sapiens_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(77, 7, 'products/gallery/1911_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(78, 7, 'products/gallery/1911_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(81, 9, 'products/gallery/yama-budo_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(83, 10, 'products/gallery/oxblood_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(84, 10, 'products/gallery/oxblood_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(85, 11, 'products/gallery/aurora_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(87, 12, 'products/gallery/perleNoire_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(88, 12, 'products/gallery/perleNoire_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(89, 13, 'products/gallery/1670_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(91, 14, 'products/gallery/igreen_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(93, 15, 'products/gallery/tomoeRiver_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(94, 15, 'products/gallery/tomoeRiver_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(98, 17, 'products/gallery/mnemosyne_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(99, 18, 'products/gallery/midori_2.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(100, 18, 'products/gallery/midori_3.png', '2026-03-22 14:24:50', '2026-03-22 14:24:50'),
+(101, 16, 'products/gallery/yiZdEr5OYAE7ZMbt8iJEdp39zWWv7ndY55pH898y.png', '2026-03-22 06:34:55', '2026-03-22 06:34:55'),
+(102, 16, 'products/gallery/FIb5FpDoGyxgzBIa9MuOOUj9fhQi8HSHGVXh79mK.jpg', '2026-03-22 06:34:55', '2026-03-22 06:34:55'),
+(103, 14, 'products/gallery/95pCxwu6a0b2AmeENiZ4ExfKUotMY1KVuLUiZ2GV.png', '2026-03-22 06:35:54', '2026-03-22 06:35:54');
 
 -- --------------------------------------------------------
 
@@ -341,9 +478,15 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `comment`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 2, '**** **** testt', NULL, '2026-02-23 16:37:17', '2026-02-23 18:29:10'),
-(2, 3, 1, 1, '**** **** test2', NULL, '2026-02-23 17:46:55', '2026-02-23 17:46:55'),
-(3, 3, 2, 5, '.', NULL, '2026-02-23 18:41:49', '2026-02-23 18:41:49');
+(1, 3, 17, 3, 'Fast shipping, great packaging, flawless item.', NULL, '2026-03-01 23:45:02', '2026-02-22 23:45:02'),
+(2, 3, 14, 3, 'Fast shipping, great packaging, flawless item.', NULL, '2026-03-09 23:45:02', '2026-02-22 23:45:02'),
+(3, 10, 10, 3, 'The color is perfect, exactly what I was looking for.', NULL, '2026-03-14 23:45:02', '2026-03-18 23:45:02'),
+(4, 4, 9, 4, 'Fast shipping, great packaging, flawless item.', NULL, '2026-03-18 23:45:02', '2026-02-19 23:45:02'),
+(5, 8, 10, 5, 'Absolutely fantastic! Exceeded my expectations.', NULL, '2026-02-25 23:45:02', '2026-03-03 23:45:02'),
+(6, 5, 11, 5, 'Fast shipping, great packaging, flawless item.', NULL, '2026-03-19 23:45:02', '2026-02-28 23:45:02'),
+(7, 5, 13, 5, 'Writes like a dream. Highly recommend.', NULL, '2026-03-08 23:45:02', '2026-03-05 23:45:02'),
+(8, 10, 17, 5, 'The color is perfect, exactly what I was looking for.', NULL, '2026-02-21 23:45:02', '2026-02-23 23:45:02'),
+(9, 3, 16, 4, 'Absolutely fantastic! Exceeded my expectations.', NULL, '2026-03-12 23:45:02', '2026-03-01 23:45:02');
 
 -- --------------------------------------------------------
 
@@ -386,12 +529,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `is_active`, `img_path`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Admin User', 'admin@test.com', '2026-02-23 04:40:58', '$2y$12$VFSD9RqAA379xZNQqBTVTefGO0quLA170UXmrB5kG1FK5UTAjeBAC', 'admin', 1, 'profile_photos/mQFUpC1sN6BogkfF76mzoNhBEVzZwFMLwdcBLy8G.jpg', NULL, NULL, '2026-02-23 04:40:58', '2026-02-23 19:01:59'),
-(2, 'Firefly', 'customer@test.com', '2026-02-23 04:40:58', '$2y$12$2y94WleyhqYp3Egq7pAnBO0NgIchsCT9RwC3CbpsYGg./DJBND70u', 'customer', 1, 'profile_photos/qD5pAoEeeM9hCKmJ97ZwoOnoyfepadNxrQBOXRQ1.gif', NULL, NULL, '2026-02-23 04:40:58', '2026-02-23 17:47:33'),
-(3, 'Dean Joefrey Cabarles', 'deanjoefrey@gmail.com', NULL, '$2y$12$kpiCi4XVZXfQYBb8pt9GIu7j9StaYXlvkb3O4h5xzdvsXBCJMdudq', 'customer', 1, 'profile_photos/Ax1GO4PfQ4SVvtXJIXQM3KKd9Ck2ytOrj5PPVxWX.png', NULL, NULL, '2026-02-23 14:57:06', '2026-02-23 17:46:15'),
-(4, 'Dean Joefrey Cabarles', 'deanjoefreyii@gmail.com', NULL, '$2y$12$S.603Xb9MsIGhGxfHGZByO9r5Sp.OVqFzW8odOKsIOJCRYGKJICqy', 'admin', 1, 'profile_photos/frD6xJQ1CYYMPaaAdQBZ3kCihwg1AxGnBLRZl3c4.png', NULL, NULL, '2026-02-23 15:00:24', '2026-02-23 17:42:57'),
-(7, 'Dean Joefrey Cabarles', 'deanjoefrey2@gmail.com', '2026-02-26 01:19:13', '$2y$12$DmwSaRxidz7RaOXZSU8H4etlM8KAZsVOPX9qhp763y1ePe74GAXiO', 'customer', 1, 'profile_photos/vmF2iOBk9Tc4QRlDNRdIjnFgl6j5dVZWOufuIkSx.jpg', NULL, NULL, '2026-02-26 01:09:05', '2026-02-26 01:19:13'),
-(8, 'Dean Joefrey Cabarles', 'deanjoefreyiii@gmail.com', '2026-02-26 01:20:35', '$2y$12$TQvKwY3LvqlStdaudxAwPeoOxO1tWx1q3gykt.2eWeJTpMfPeX8Sy', 'customer', 1, 'profile_photos/yaFv8G7foeNhYt525EMdIoEj2v4brDc3iXiA7HLI.png', NULL, NULL, '2026-02-26 01:20:05', '2026-02-26 01:20:35');
+(1, 'Admin User', 'admin@test.com', '2026-03-21 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'admin', 1, 'profile_photos/default_user.png', NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(2, 'Regular Customer', 'customer@test.com', '2026-03-21 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'customer', 1, NULL, NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(3, 'Arthur Pendragon', 'customer2@test.com', '2026-03-01 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'customer', 1, 'profile_photos/default_user.png', NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(4, 'Diana Prince', 'customer3@test.com', '2026-03-11 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'customer', 1, 'profile_photos/default_user.png', NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(5, 'Bruce Wayne', 'customer4@test.com', '2026-03-09 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'customer', 1, 'profile_photos/default_user.png', NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(6, 'Clark Kent', 'customer5@test.com', '2026-03-15 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'customer', 1, 'profile_photos/default_user.png', NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(7, 'Tony Stark', 'customer6@test.com', '2026-02-22 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'customer', 1, 'profile_photos/default_user.png', NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(8, 'Peter Parker', 'customer7@test.com', '2026-02-24 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'customer', 1, 'profile_photos/default_user.png', NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(9, 'Natasha Romanoff', 'customer8@test.com', '2026-03-06 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'customer', 1, 'profile_photos/default_user.png', NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01'),
+(10, 'Steve Rogers', 'customer9@test.com', '2026-02-26 23:45:01', '$2y$12$x9v9I2r3ZivQ/Pu6HL.GZeVcy/RcLvCAFVKy4a2F1SDc49RiBRsEe', 'customer', 1, 'profile_photos/default_user.png', NULL, NULL, '2026-03-21 23:45:01', '2026-03-21 23:45:01');
 
 --
 -- Indexes for dumped tables
@@ -509,7 +656,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -527,43 +674,43 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

@@ -6,11 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'The Saturation Point')</title>
-
+ 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
-     
+      
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -21,27 +21,32 @@
             --gold-accent: #c6a87c;    
             --text-dark: #333333;
         }
-
-        /* Base Body Font (Lato) */
+ 
         body {
-            font-family: 'Lato', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--paper-cream);
             color: var(--text-dark);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-
-        /* Headings Font (Lora - Fixed aligned numbers) */
+ 
         h1, h2, h3, h4, h5, h6, .navbar-brand, .font-playfair {
             font-family: 'Lora', serif;
         }
-
-        /* The rest remains the same */
-        .navbar {
-            background-color: var(--ink-blue);
-            padding: 1rem 0;
+ 
+        table.dataTable, .table {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.9rem;
+        }
+ 
+        .navbar { 
+            background-color: rgba(15, 23, 42, 0.9) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 0.8rem 0;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(198, 168, 124, 0.2);
         }
 
         .navbar-brand {
@@ -106,7 +111,7 @@
         .product-card:hover {
             transform: translateY(-5px);
         }
-
+ 
         .pagination .page-item .page-link {
             color: var(--ink-blue);
             border-radius: 2px !important;
@@ -131,12 +136,31 @@
             background-color: var(--paper-cream);
             border-color: var(--ink-blue);
         }
+ 
+        .dropdown-item {
+            color: var(--ink-blue) !important;
+            transition: all 0.2s ease-in-out;
+        }
+ 
+        .dropdown-item:hover, 
+        .dropdown-item:focus,
+        .dropdown-item.active {
+            background-color: var(--ink-blue) !important;  
+            color: var(--gold-accent) !important;         
+        }
+ 
+        .dropdown-item.text-danger:hover {
+            background-color: #dc3545 !important;
+            color: white !important;
+        }
     </style>
 </head>
 <body>
 
     @include('partials.header')
-
+ 
+    @yield('hero')
+ 
     <main class="py-5">
         <div class="container">
             @if(session('success'))
