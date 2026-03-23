@@ -15,17 +15,18 @@ class ShopController extends Controller
         $categories = Category::all();
         $brands = Product::select('brand')->distinct()->pluck('brand');
 
-        $query = Product::query();
-
         if ($request->filled('search')) {
-            $scout = Product::search($request->search);
-            $scout->query(function ($builder) use ($request) {
-                $builder->with('category'); 
-                $this->applyFilters($builder, $request);
-            });
-            $products = $scout->paginate(9)->withQueryString();
+            $keyword = $request->search;
+             
+            $products = Product::search($keyword)
+                ->query(function ($builder) use ($request) {
+                    $builder->with('category');
+                    $this->applyFilters($builder, $request);
+                })
+                ->paginate(9)
+                ->withQueryString();
         } else {
-            $query->with('category');
+            $query = Product::query()->with('category');
             $this->applyFilters($query, $request);
             $products = $query->latest()->paginate(9)->withQueryString();
         }
