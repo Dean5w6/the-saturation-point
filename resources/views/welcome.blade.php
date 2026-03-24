@@ -13,8 +13,52 @@
             <h5 class="text-white mb-3 font-playfair">Find Your Next Instrument</h5>
             <form action="{{ route('home') }}" method="GET">
                 <div class="input-group"> 
-                    <input type="text" name="search" class="form-control" placeholder="Search by name, brand..." value="{{ request('search') }}" style="font-size: 0.9rem; border-radius: 2px;">
-                    <button class="btn fw-bold" style="background-color: var(--gold-accent); color: var(--ink-blue); border-radius: 2px;" type="submit">
+                    <input type="text" name="search" class="form-control" placeholder="Search by name, brand..." value="{{ request('search') }}" style="font-size: 0.9rem; border-radius: 2px 0 0 2px;">
+                    
+                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="border-radius: 0; font-size: 0.9rem;">
+                        <i class="fas fa-filter"></i> Filters
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end p-3 shadow-lg" style="width: 300px; border-radius: 2px;">
+                        <h6 class="border-bottom pb-2 font-playfair" style="color: var(--ink-blue);">Filter Collection</h6>
+                        
+                        <div class="mb-3 mt-3">
+                            <label class="form-label small fw-bold text-uppercase">Category</label>
+                            <select name="category" class="form-select form-select-sm">
+                                <option value="">All Categories</option>
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-uppercase">Brand</label>
+                            <select name="brand" class="form-select form-select-sm">
+                                <option value="">All Brands</option>
+                                @foreach($brands as $brand)
+                                    <option value="{{ $brand }}" {{ request('brand') == $brand ? 'selected' : '' }}>{{ $brand }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-uppercase">Price Range (₱)</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <input type="number" name="min_price" class="form-control form-control-sm" placeholder="Min" value="{{ request('min_price') }}">
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="max_price" class="form-control form-control-sm" placeholder="Max" value="{{ request('max_price') }}">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-sm">Clear Filters</a>
+                        </div>
+                    </div>
+
+                    <button class="btn fw-bold" style="background-color: var(--gold-accent); color: var(--ink-blue); border-radius: 0 2px 2px 0;" type="submit">
                         <i class="fas fa-search"></i> Search
                     </button>
                 </div>
@@ -24,58 +68,7 @@
 </div>
 
 <div class="row"> 
-    <div class="col-md-3 mb-4">
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
-                <h5 class="border-bottom pb-2 font-playfair" style="color: var(--ink-blue);">Filter Collection</h5>
-                
-                <form action="{{ route('home') }}" method="GET"> 
-                    @if(request('search'))
-                        <input type="hidden" name="search" value="{{ request('search') }}">
-                    @endif
-
-                    <div class="mb-3 mt-3">
-                        <label class="form-label small fw-bold text-uppercase">Category</label>
-                        <select name="category" class="form-select form-select-sm">
-                            <option value="">All Categories</option>
-                            @foreach($categories as $cat)
-                                <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold text-uppercase">Brand</label>
-                        <select name="brand" class="form-select form-select-sm">
-                            <option value="">All Brands</option>
-                            @foreach($brands as $brand)
-                                <option value="{{ $brand }}" {{ request('brand') == $brand ? 'selected' : '' }}>{{ $brand }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label small fw-bold text-uppercase">Price Range (₱)</label>
-                        <div class="row g-2">
-                            <div class="col-6">
-                                <input type="number" name="min_price" class="form-control form-control-sm" placeholder="Min" value="{{ request('min_price') }}">
-                            </div>
-                            <div class="col-6">
-                                <input type="number" name="max_price" class="form-control form-control-sm" placeholder="Max" value="{{ request('max_price') }}">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">APPLY FILTERS</button>
-                        <a href="{{ route('home') }}" class="btn btn-outline-secondary">CLEAR</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
- 
-    <div class="col-md-9">
+    <div class="col-12">
         <div class="row g-4 mb-4">
             @forelse($products as $product)
                 <div class="col-md-4">
