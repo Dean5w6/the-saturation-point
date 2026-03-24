@@ -88,8 +88,7 @@ class OrderController extends Controller
                     $product = $item->product;
                     if ($product->stock < $item->quantity) {
                         throw new \Exception("Insufficient stock for {$product->name}.");
-                    }
-                    $product->decrement('stock', $item->quantity);
+                    } 
                 }
                 DB::commit();
             } catch (\Exception $e) {
